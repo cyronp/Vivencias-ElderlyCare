@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Funnel+Sans:ital,wght@0,424;1,424&family=Imperial+Script&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Ubuntu', sans-serif;
+  
+}
+
+body {
+  height: 100vh;
+  background: #4264D0;
+  background: linear-gradient(180deg, rgba(66, 100, 208, 1) 27%, rgba(34, 51, 106, 1) 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img{
+  width: 200px;
+  height: 200px;
+}
+
+h1{
+  color: #FFFFFF;
+  font-size: 64px;
+  text-align: center;
+}
+
+h2{
+  color: #FFFFFF;
+  font-size: 48px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+span{
+  color: #FFFFFF;
+  font-weight: 500
+}
+
+button{
+  width: 300px;
+  height: 70px;
+  background-color: #4264D0;
+  border: none;
+  color: #FFFFFF;
+  font-size: 36px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+  margin-top: 40px;
+  display: block;
+}
+
+button:hover{
+  background-color: #3550b8;
+}
+
+#remember{
+  appearance: none;
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #D9D9D9;
+  cursor: pointer;
+  position: relative;
+}
+
+
+input[type="checkbox"]:checked::before {
+  content: '✔'; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(0, 89, 255);
+  font-size: 24px;
+}
+
+.text{
+  width: 400px;
+  height: 70px;
+  border-radius: 40px;
+  background-color: #D9D9D9;
+  border: none;
+  padding: 0 20px 0 60px;
+  font-size: 20px;
+}
+
+.text::placeholder {
+  color: #2E2E2E;
+}
+
+.container{
+  width: 500px;
+  height: 600px;
+  background-color: #232B47;
+  border-radius: 30px;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.checkbox{
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 400px;
+}
+
+.input-icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
