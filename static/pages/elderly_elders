@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElderlyCare</title>
+    <link rel="stylesheet" href="../css/elders.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="../assets/elderly_icon.png" alt="" />
+        </div>
+        <div class="logo-text">ElderlyCare</div>
+      </div>
+      <div class="date-time">
+        <div class="day" id="current-date"></div>
+        <div class="time" id="time"></div>
+      </div>
+      <div class="menu">
+        <div class="menu-item">
+          <span class="menu-icon"
+            ><img src="../assets/home.svg" alt="" class="icons"
+          /></span>
+          <span>Home</span>
+        </div>
+        <div class="menu-item active">
+          <span class="menu-icon"
+            ><img
+              src="../assets/users.svg"
+              alt=""
+              class="icons active-icon"
+          /></span>
+          <span class="active-text">Idosos</span>
+        </div>
+        <div class="menu-item">
+          <span class="menu-icon"
+            ><img src="../assets/plus-circle.svg" alt="" class="icons"
+          /></span>
+          <span>Adicionar Idoso</span>
+        </div>
+        <div class="menu-item">
+          <span class="menu-icon"
+            ><img src="../assets/document.svg" alt="" class="icons"
+          /></span>
+          <span>Cuidados</span>
+        </div>
+      </div>
+      <div class="settings">
+        <span class="menu-icon"
+          ><img src="../assets/cog-8-tooth.svg" alt="" class="icons"
+        /></span>
+        <span>Configuração</span>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="header">
+        <div class="header-right">
+          <span class="search-icon"
+            ><img src="../assets/magnifying-glass.svg" alt="" class="icons"
+          /></span>
+          <div class="notification-icon">
+            <img src="../assets/bell.svg" alt="" class="icons" />
+            <span class="notification-badge hide-noti"></span>
+          </div>
+          <div class="user-section">
+            <div class="user-avatar"></div>
+            <span class="user-info">Admin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <h1 class="elders-title">Lista de Cuidados</h1>
+        <div class="elders-container">
+          <div class="elder-box">
+            <div class="elder-image-container">
+              <img src="../assets/idoso.png" alt="" class="elders-image" />
+              <img src="../assets/Subtract.svg" alt="" class="subtract-icon" />
+            </div>
+            <h2 class="elder-name">Nome do Idoso</h2>
+            <h2 class="elder-age">60 anos</h2>
+            <div class="elder-cares">
+              <h3 class="care-title">Prioridade dos cuidados:</h3>
+              <h3 class="high-priority priority-title">Alta</h3>
+              <p class="care-description">
+                Paracetamol → <span class="high-priority">13:30</span>
+              </p>
+              <h3 class="medium-priority priority-title">Medio</h3>
+              <p class="care-description">
+                Paracetamol → <span class="medio-priority">13:30</span>
+              </p>
+              <h3 class="low-priority priority-title">Baixa</h3>
+              <p class="care-description">
+                Paracetamol → <span class="low-priority">13:30</span>
+              </p>
+              <button class="do-care">Realizar cuidado</button>
+            </div>
+          </div>
+          <div class="elder-box">
+            <div class="elder-image-container">
+              <img src="../assets/idoso.png" alt="" class="elders-image" />
+              <img src="../assets/Subtract.svg" alt="" class="subtract-icon" />
+            </div>
+            <h2 class="elder-name">Nome do Idoso</h2>
+            <h2 class="elder-age">60 anos</h2>
+            <div class="elder-cares">
+              <h3 class="care-title">Prioridade dos cuidados:</h3>
+              <h3 class="high-priority priority-title">Alta</h3>
+              <p class="care-description">
+                Paracetamol → <span class="high-priority">13:30</span>
+              </p>
+              <h3 class="medium-priority priority-title">Medio</h3>
+              <p class="care-description">
+                Paracetamol → <span class="medio-priority">13:30</span>
+              </p>
+              <h3 class="low-priority priority-title">Baixa</h3>
+              <p class="care-description">
+                Paracetamol → <span class="low-priority">13:30</span>
+              </p>
+              <button class="do-care">Realizar cuidado</button>
+            </div>
+          </div>
+          <div class="elder-box">
+            <div class="elder-image-container">
+              <img src="../assets/idoso.png" alt="" class="elders-image" />
+              <img src="../assets/Subtract.svg" alt="" class="subtract-icon" />
+            </div>
+            <h2 class="elder-name">Nome do Idoso</h2>
+            <h2 class="elder-age">60 anos</h2>
+            <div class="elder-cares">
+              <h3 class="care-title">Prioridade dos cuidados:</h3>
+              <h3 class="high-priority priority-title">Alta</h3>
+              <p class="care-description">
+                Paracetamol → <span class="high-priority">13:30</span>
+              </p>
+              <h3 class="medium-priority priority-title">Medio</h3>
+              <p class="care-description">
+                Paracetamol → <span class="medio-priority">13:30</span>
+              </p>
+              <h3 class="low-priority priority-title">Baixa</h3>
+              <p class="care-description">
+                Paracetamol → <span class="low-priority">13:30</span>
+              </p>
+              <button class="do-care">Realizar cuidado</button>
+            </div>
+          </div>
+          <div class="elder-box">
+            <div class="elder-image-container">
+              <img src="../assets/idoso.png" alt="" class="elders-image" />
+              <img src="../assets/Subtract.svg" alt="" class="subtract-icon" />
+            </div>
+            <h2 class="elder-name">Nome do Idoso</h2>
+            <h2 class="elder-age">60 anos</h2>
+            <div class="elder-cares">
+              <h3 class="care-title">Prioridade dos cuidados:</h3>
+              <h3 class="high-priority priority-title">Alta</h3>
+              <p class="care-description">
+                Paracetamol → <span class="high-priority">13:30</span>
+              </p>
+              <h3 class="medium-priority priority-title">Medio</h3>
+              <p class="care-description">
+                Paracetamol → <span class="medio-priority">13:30</span>
+              </p>
+              <h3 class="low-priority priority-title">Baixa</h3>
+              <p class="care-description">
+                Paracetamol → <span class="low-priority">13:30</span>
+              </p>
+              <button class="do-care">Realizar cuidado</button>
+            </div>
+          </div>
+          <div class="elder-box">
+            <div class="elder-image-container">
+              <img src="../assets/idoso.png" alt="" class="elders-image" />
+              <img src="../assets/Subtract.svg" alt="" class="subtract-icon" />
+            </div>
+            <h2 class="elder-name">Nome do Idoso</h2>
+            <h2 class="elder-age">60 anos</h2>
+            <div class="elder-cares">
+              <h3 class="care-title">Prioridade dos cuidados:</h3>
+              <h3 class="high-priority priority-title">Alta</h3>
+              <p class="care-description">
+                Paracetamol → <span class="high-priority">13:30</span>
+              </p>
+              <h3 class="medium-priority priority-title">Medio</h3>
+              <p class="care-description">
+                Paracetamol → <span class="medio-priority">13:30</span>
+              </p>
+              <h3 class="low-priority priority-title">Baixa</h3>
+              <p class="care-description">
+                Paracetamol → <span class="low-priority">13:30</span>
+              </p>
+              <button class="do-care">Realizar cuidado</button>
+            </div>
+          </div>
+          <div class="elder-box">
+            <div class="elder-image-container">
+              <img src="../assets/idoso.png" alt="" class="elders-image" />
+              <img src="../assets/Subtract.svg" alt="" class="subtract-icon" />
+            </div>
+            <h2 class="elder-name">Nome do Idoso</h2>
+            <h2 class="elder-age">60 anos</h2>
+            <div class="elder-cares">
+              <h3 class="care-title">Prioridade dos cuidados:</h3>
+              <h3 class="high-priority priority-title">Alta</h3>
+              <p class="care-description">
+                Paracetamol → <span class="high-priority">13:30</span>
+              </p>
+              <h3 class="medium-priority priority-title">Medio</h3>
+              <p class="care-description">
+                Paracetamol → <span class="medio-priority">13:30</span>
+              </p>
+              <h3 class="low-priority priority-title">Baixa</h3>
+              <p class="care-description">
+                Paracetamol → <span class="low-priority">13:30</span>
+              </p>
+              <button class="do-care">Realizar cuidado</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateDateTime() {
+        const now = new Date();
+
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+        const timeStr = `${hours}:${minutes}:${seconds}`;
+
+        document.getElementById("time").textContent = timeStr;
+        if (document.getElementById("header-time")) {
+          document.getElementById("header-time").textContent = timeStr;
+        }
+
+        const day = now.getDate();
+        const months = [
+          "Janeiro",
+          "Fevereiro",
+          "Março",
+          "Abril",
+          "Maio",
+          "Junho",
+          "Julho",
+          "Agosto",
+          "Setembro",
+          "Outubro",
+          "Novembro",
+          "Dezembro",
+        ];
+        const month = months[now.getMonth()];
+        const year = now.getFullYear();
+        const dateStr = `${day} de ${month} de ${year}`;
+
+        document.getElementById("current-date").textContent = dateStr;
+      }
+
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+    </script>
+  </body>
+</html>

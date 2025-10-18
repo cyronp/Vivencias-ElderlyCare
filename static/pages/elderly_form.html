@@ -37,7 +37,7 @@
         </div>
         <div class="menu-item active">
           <span class="menu-icon"
-            ><img src="../assets/plus-circle.svg" alt="" class="icons"
+            ><img src="../assets/plus-circle.svg" alt="" class="icons active-icon"
           /></span>
           <span class="active-text">Adicionar Idoso</span>
         </div>
@@ -64,7 +64,7 @@
           /></span>
           <div class="notification-icon">
             <img src="../assets/bell.svg" alt="" class="icons" />
-            <span class="notification-badge"></span>
+            <span class="notification-badge hide-noti"></span>
           </div>
           <div class="user-section">
             <div class="user-avatar"></div>
@@ -157,7 +157,6 @@
       function updateDateTime() {
         const now = new Date();
 
-        // Update time (hours:minutes:seconds)
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
         const seconds = String(now.getSeconds()).padStart(2, "0");
@@ -168,7 +167,6 @@
           document.getElementById("header-time").textContent = timeStr;
         }
 
-        // Update date (day de month de year)
         const day = now.getDate();
         const months = [
           "Janeiro",
