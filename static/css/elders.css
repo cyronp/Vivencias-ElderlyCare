@@ -104,6 +104,7 @@ body {
 .icons {
   width: 40px;
   height: 40px;
+  filter: invert(100%) brightness(200%);
 }
 
 .hide-noti {
