@@ -162,5 +162,73 @@ function showConfirmation() {
 }
 
 function submitForm() {
-  alert("Cadastro finalizado com sucesso!");
+  const elderlyName = document.getElementById("elderly-name").value;
+  const elderlyAge = document.getElementById("elderly-age").value;
+  const elderlyBirth = document.getElementById("elderly-birth").value;
+
+  const childNames = document.querySelectorAll(".child-name");
+  const childPhones = document.querySelectorAll(".child-phone");
+  const filhos = [];
+
+  childNames.forEach((nameInput, index) => {
+    if (nameInput.value) {
+      filhos.push({
+        nome: nameInput.value,
+        telefone: childPhones[index].value,
+      });
+    }
+  });
+
+  const careNames = document.querySelectorAll(".care-name");
+  const careTimes = document.querySelectorAll(".care-time");
+  const carePriorities = document.querySelectorAll(".care-priority");
+  const remedios = [];
+
+  careNames.forEach((nameInput, index) => {
+    if (nameInput.value && careTimes[index].value) {
+      remedios.push({
+        nome: nameInput.value,
+        horario: careTimes[index].value,
+        dosagem: carePriorities[index].value,
+      });
+    }
+  });
+
+  const data = {
+    nome: elderlyName,
+    idade: parseInt(elderlyAge),
+    data_nascimento: elderlyBirth,
+    filhos: filhos,
+    remedios: remedios,
+  };
+
+  console.log("Dados enviados:", JSON.stringify(data, null, 2));
+
+  fetch("/idosos/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Erro do servidor:", errorData);
+        throw new Error(JSON.stringify(errorData));
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert("Cadastro finalizado com sucesso!");
+      console.log("Idoso cadastrado:", data);
+      window.location.href = "/static/pages/elderly_elders.html";
+    })
+    .catch((error) => {
+      console.error("Erro completo:", error);
+      alert(
+        "Erro ao cadastrar idoso. Verifique os dados e tente novamente.\n\nDetalhes: " +
+          error.message
+      );
+    });
 }

@@ -1,37 +1,51 @@
 <!-- filepath: c:\Users\vitor\OneDrive\Documentos\GitHub\Vivencias-ElderlyCare\static\index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/login.css">
-  <title>ElderlyCare</title>
-</head>
-<body>
-  <div class="login-wrapper">
-    <img src="assets/veiocacudo 1.svg" alt="icone">
-    <h1>Elderly Care</h1>
-    <div class="container">
-      <form action="">
-        <h2>Faça Login</h2>
-        
-        <div class="input-wrapper">
-          <img class="input-icon" src="assets/user.svg" alt="user icon">
-          <input type="text" class="text" placeholder="Usuário">
-        </div>
-        
-        <div class="input-wrapper">
-          <img class="input-icon" src="assets/lock-closed.svg" alt="lock icon">
-          <input type="password" id="password" class="text" placeholder="Senha">
-        </div>
-        
-        <div class="checkbox">
-          <input type="checkbox" id="remember">
-          <span>Lembrar de mim</span>
-        </div>
-        <button type="submit">Login</button>
-      </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/login.css" />
+    <title>ElderlyCare</title>
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <img src="../static/assets/veiocacudo 1.svg" alt="icone" />
+      <h1>Elderly Care</h1>
+      <div class="container">
+        <form action="">
+          <h2>Faça Login</h2>
+
+          <div class="input-wrapper">
+            <img
+              class="input-icon lock-icon"
+              src="../static/assets/user.svg"
+              alt="user icon"
+            />
+            <input type="text" class="text" placeholder="Usuário" />
+          </div>
+
+          <div class="input-wrapper">
+            <img
+              class="input-icon"
+              src="../static/assets/lock-closed.svg"
+              alt="lock icon"
+            />
+            <input
+              type="password"
+              id="password"
+              class="text"
+              placeholder="Senha"
+            />
+          </div>
+
+          <div class="checkbox">
+            <input type="checkbox" id="remember" />
+            <span>Lembrar de mim</span>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
+    <script src="../static/js/login.js"></script>
+  </body>
 </html>
