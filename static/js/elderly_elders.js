@@ -140,7 +140,6 @@ function loadElderly() {
 let currentEditingIdoso = null;
 
 function openEditModal(idosoId) {
-  // Buscar dados do idoso
   fetch(`/idosos/`)
     .then((response) => response.json())
     .then((idosos) => {
@@ -182,7 +181,6 @@ function populateEditModal(idoso) {
   document.getElementById("edit-data-nascimento").value =
     idoso.data_nascimento || "";
 
-  // Preencher lista de remédios
   const remediosList = document.getElementById("edit-remedios-list");
   remediosList.innerHTML = "";
   idoso.remedios.forEach((remedio, index) => {
@@ -198,7 +196,6 @@ function populateEditModal(idoso) {
     remediosList.appendChild(item);
   });
 
-  // Preencher lista de filhos
   const filhosList = document.getElementById("edit-filhos-list");
   filhosList.innerHTML = "";
   idoso.filhos.forEach((filho, index) => {
@@ -214,7 +211,6 @@ function populateEditModal(idoso) {
     filhosList.appendChild(item);
   });
 
-  // Preencher lista de visitas
   const visitasList = document.getElementById("edit-visitas-list");
   visitasList.innerHTML = "";
   if (idoso.visitas && idoso.visitas.length > 0) {
@@ -273,7 +269,6 @@ function cancelAddVisita() {
   document.getElementById("new-visita-responsavel").value = "";
 }
 
-// Funções para adicionar itens
 function addRemedio() {
   const nome = document.getElementById("new-remedio-nome").value.trim();
   const prioridade = document.getElementById("new-remedio-prioridade").value;

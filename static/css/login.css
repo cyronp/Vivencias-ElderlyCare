@@ -137,6 +137,14 @@ input[type="checkbox"]:checked::before {
   z-index: 1;
 }
 
+.text:focus,
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+}
+
 .lock-icon {
   filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(366%) hue-rotate(202deg) brightness(95%) contrast(88%);
 }

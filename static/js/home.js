@@ -93,7 +93,6 @@ function loadNextCares(idosos) {
   }
 }
 
-// Inicializa
 updateDateTime();
 setInterval(updateDateTime, 1000);
 loadStatistics();
