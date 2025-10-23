@@ -19,7 +19,7 @@ class Remedio(RemedioBase):
     idoso_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # ---------- Filho ----------
@@ -37,7 +37,7 @@ class Filho(FilhoBase):
     idoso_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # ---------- Visita ----------
@@ -55,7 +55,7 @@ class Visita(VisitaBase):
     idoso_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # ---------- Idoso ----------
@@ -77,4 +77,4 @@ class Idoso(IdosoBase):
     visitas: List[Visita] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

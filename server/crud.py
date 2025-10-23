@@ -38,7 +38,8 @@ def delete_idoso(db: Session, idoso_id: int):
     if db_idoso:
         db.delete(db_idoso)
         db.commit()
-    return db_idoso
+        return True
+    return False
 
 
 def create_remedio(db: Session, remedio: schemas.RemedioCreate, idoso_id: int):

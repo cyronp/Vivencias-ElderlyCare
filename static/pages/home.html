@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElderlyCare - Home</title>
+    <link rel="stylesheet" href="../css/elders.css" />
+    <link rel="stylesheet" href="../css/home.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="../assets/elderly_icon.png" alt="" />
+        </div>
+        <div class="logo-text">ElderlyCare</div>
+      </div>
+      <div class="date-time">
+        <div class="day" id="current-date"></div>
+        <div class="time" id="time"></div>
+      </div>
+      <div class="menu">
+        <a
+          href="/static/pages/home.html"
+          class="menu-item active"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="menu-icon"
+            ><img src="../assets/home.svg" alt="" class="icons active-icon"
+          /></span>
+          <span class="active-text">Home</span>
+        </a>
+        <a
+          href="/static/pages/elderly_elders.html"
+          class="menu-item"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="menu-icon"
+            ><img src="../assets/users.svg" alt="" class="icons"
+          /></span>
+          <span>Idosos</span>
+        </a>
+        <a
+          href="/static/pages/elderly_form.html"
+          class="menu-item"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="menu-icon"
+            ><img src="../assets/plus-circle.svg" alt="" class="icons"
+          /></span>
+          <span>Adicionar Idoso</span>
+        </a>
+        <div class="menu-item">
+          <span class="menu-icon"
+            ><img src="../assets/document.svg" alt="" class="icons"
+          /></span>
+          <span>Cuidados</span>
+        </div>
+      </div>
+      <div class="settings">
+        <span class="menu-icon"
+          ><img src="../assets/cog-8-tooth.svg" alt="" class="icons"
+        /></span>
+        <span>Configuração</span>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="header">
+        <div class="header-right">
+          <span class="search-icon"
+            ><img src="../assets/magnifying-glass.svg" alt="" class="icons"
+          /></span>
+          <div class="notification-icon">
+            <img src="../assets/bell.svg" alt="" class="icons" />
+            <span class="notification-badge hide-noti"></span>
+          </div>
+          <div class="user-section">
+            <div class="user-avatar"></div>
+            <span class="user-info">Admin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-area dashboard-container">
+        <h1 class="dashboard-title">Bem-vindo ao ElderlyCare</h1>
+
+        <div class="stats-grid">
+          <div class="stat-card stat-card-blue">
+            <div class="stat-icon"><img src="../assets/users.svg" alt="" class="icons" /></div>
+            <h3 class="stat-label">Total de Idosos</h3>
+            <p class="stat-number" id="total-idosos">0</p>
+          </div>
+
+          <div class="stat-card stat-card-green">
+            <div class="stat-icon">💊</div>
+            <h3 class="stat-label">Cuidados Hoje</h3>
+            <p class="stat-number" id="total-cuidados">0</p>
+          </div>
+
+          <div class="stat-card stat-card-yellow">
+            <div class="stat-icon">📅</div>
+            <h3 class="stat-label">Visitas Agendadas</h3>
+            <p class="stat-number" id="total-visitas">0</p>
+          </div>
+        </div>
+
+        <h2 class="section-title">Ações Rápidas</h2>
+        <div class="quick-actions">
+          <a
+            href="/static/pages/elderly_form.html"
+            style="text-decoration: none"
+          >
+            <button class="action-btn action-btn-primary">
+              <img
+                src="../assets/plus-circle.svg"
+                alt=""
+                class="icons-button"
+              />
+              Cadastrar Novo Idoso
+            </button>
+          </a>
+          <a
+            href="/static/pages/elderly_elders.html"
+            style="text-decoration: none"
+          >
+            <button class="action-btn action-btn-primary">
+              <img src="../assets/users.svg" alt="" class="icons-button" />
+              Ver Todos os Idosos
+            </button>
+          </a>
+        </div>
+
+        <div class="next-cares-section">
+          <h2 class="section-title">Próximos Cuidados do Dia</h2>
+          <div id="proximos-cuidados" class="next-cares">
+            <p style="color: #999; text-align: center">Carregando...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/home.js"></script>
+  </body>
+</html>

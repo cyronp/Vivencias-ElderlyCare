@@ -19,27 +19,36 @@
         <div class="time" id="time"></div>
       </div>
       <div class="menu">
-        <div class="menu-item">
+        <a
+          href="/static/pages/home.html"
+          class="menu-item"
+          style="text-decoration: none; color: inherit"
+        >
           <span class="menu-icon"
             ><img src="../assets/home.svg" alt="" class="icons"
           /></span>
           <span>Home</span>
-        </div>
-        <div class="menu-item active">
+        </a>
+        <a
+          href="/static/pages/elderly_elders.html"
+          class="menu-item active"
+          style="text-decoration: none; color: inherit"
+        >
           <span class="menu-icon"
-            ><img
-              src="../assets/users.svg"
-              alt=""
-              class="icons active-icon"
+            ><img src="../assets/users.svg" alt="" class="icons active-icon"
           /></span>
           <span class="active-text">Idosos</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a
+          href="/static/pages/elderly_form.html"
+          class="menu-item"
+          style="text-decoration: none; color: inherit"
+        >
           <span class="menu-icon"
             ><img src="../assets/plus-circle.svg" alt="" class="icons"
           /></span>
           <span>Adicionar Idoso</span>
-        </div>
+        </a>
         <div class="menu-item">
           <span class="menu-icon"
             ><img src="../assets/document.svg" alt="" class="icons"
@@ -74,193 +83,179 @@
 
       <div class="content-area">
         <h1 class="elders-title">Lista de Cuidados</h1>
-        <div class="elders-container">
-          <div class="elder-box">
-            <div class="elder-image-container">
-              <img src="../assets/idoso.png" alt="" class="elders-image" />
-              <img src="../assets/Subtract.png" alt="" class="subtract-icon" />
-            </div>
-            <h2 class="elder-name">Nome do Idoso</h2>
-            <h2 class="elder-age">60 anos</h2>
-            <div class="elder-cares">
-              <h3 class="care-title">Prioridade dos cuidados:</h3>
-              <h3 class="high-priority priority-title">Alta</h3>
-              <p class="care-description">
-                Paracetamol → <span class="high-priority">13:30</span>
-              </p>
-              <h3 class="medium-priority priority-title">Medio</h3>
-              <p class="care-description">
-                Paracetamol → <span class="medio-priority">13:30</span>
-              </p>
-              <h3 class="low-priority priority-title">Baixa</h3>
-              <p class="care-description">
-                Paracetamol → <span class="low-priority">13:30</span>
-              </p>
-              <button class="do-care">Realizar cuidado</button>
-            </div>
+        <div class="elders-container" id="elders-container"></div>
+      </div>
+    </div>
+
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Editar Idoso</h2>
+          <button class="modal-close" onclick="closeEditModal()">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-field">
+            <label for="edit-nome">Nome:</label>
+            <input type="text" id="edit-nome" placeholder="Nome do idoso" />
           </div>
-          <div class="elder-box">
-            <div class="elder-image-container">
-              <img src="../assets/idoso.png" alt="" class="elders-image" />
-              <img src="../assets/Subtract.png" alt="" class="subtract-icon" />
-            </div>
-            <h2 class="elder-name">Nome do Idoso</h2>
-            <h2 class="elder-age">60 anos</h2>
-            <div class="elder-cares">
-              <h3 class="care-title">Prioridade dos cuidados:</h3>
-              <h3 class="high-priority priority-title">Alta</h3>
-              <p class="care-description">
-                Paracetamol → <span class="high-priority">13:30</span>
-              </p>
-              <h3 class="medium-priority priority-title">Medio</h3>
-              <p class="care-description">
-                Paracetamol → <span class="medio-priority">13:30</span>
-              </p>
-              <h3 class="low-priority priority-title">Baixa</h3>
-              <p class="care-description">
-                Paracetamol → <span class="low-priority">13:30</span>
-              </p>
-              <button class="do-care">Realizar cuidado</button>
-            </div>
+
+          <div class="modal-field">
+            <label for="edit-idade">Idade:</label>
+            <input type="number" id="edit-idade" placeholder="Idade" />
           </div>
-          <div class="elder-box">
-            <div class="elder-image-container">
-              <img src="../assets/idoso.png" alt="" class="elders-image" />
-              <img src="../assets/Subtract.png" alt="" class="subtract-icon" />
-            </div>
-            <h2 class="elder-name">Nome do Idoso</h2>
-            <h2 class="elder-age">60 anos</h2>
-            <div class="elder-cares">
-              <h3 class="care-title">Prioridade dos cuidados:</h3>
-              <h3 class="high-priority priority-title">Alta</h3>
-              <p class="care-description">
-                Paracetamol → <span class="high-priority">13:30</span>
-              </p>
-              <h3 class="medium-priority priority-title">Medio</h3>
-              <p class="care-description">
-                Paracetamol → <span class="medio-priority">13:30</span>
-              </p>
-              <h3 class="low-priority priority-title">Baixa</h3>
-              <p class="care-description">
-                Paracetamol → <span class="low-priority">13:30</span>
-              </p>
-              <button class="do-care">Realizar cuidado</button>
-            </div>
+
+          <div class="modal-field">
+            <label for="edit-data-nascimento">Data de Nascimento:</label>
+            <input type="date" id="edit-data-nascimento" />
           </div>
-          <div class="elder-box">
-            <div class="elder-image-container">
-              <img src="../assets/idoso.png" alt="" class="elders-image" />
-              <img src="../assets/Subtract.png" alt="" class="subtract-icon" />
+
+          <div class="modal-section">
+            <h3 class="modal-section-title">Remédios/Cuidados</h3>
+            <div id="edit-remedios-list" class="modal-list"></div>
+            <div
+              class="modal-add-form"
+              id="add-remedio-form"
+              style="display: none; margin-top: 10px"
+            >
+              <div class="modal-field">
+                <label>Nome do Remédio/Cuidado:</label>
+                <input
+                  type="text"
+                  id="new-remedio-nome"
+                  placeholder="Ex: Paracetamol, Caminhada"
+                />
+              </div>
+              <div class="modal-field">
+                <label>Prioridade:</label>
+                <select id="new-remedio-prioridade">
+                  <option value="baixa">Baixa</option>
+                  <option value="media">Média</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </div>
+              <div class="modal-field">
+                <label>Horário:</label>
+                <input type="time" id="new-remedio-horario" />
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 10px">
+                <button class="modal-btn modal-btn-save" onclick="addRemedio()">
+                  Adicionar
+                </button>
+                <button
+                  class="modal-btn modal-btn-cancel"
+                  onclick="cancelAddRemedio()"
+                >
+                  Cancelar
+                </button>
+              </div>
             </div>
-            <h2 class="elder-name">Nome do Idoso</h2>
-            <h2 class="elder-age">60 anos</h2>
-            <div class="elder-cares">
-              <h3 class="care-title">Prioridade dos cuidados:</h3>
-              <h3 class="high-priority priority-title">Alta</h3>
-              <p class="care-description">
-                Paracetamol → <span class="high-priority">13:30</span>
-              </p>
-              <h3 class="medium-priority priority-title">Medio</h3>
-              <p class="care-description">
-                Paracetamol → <span class="medio-priority">13:30</span>
-              </p>
-              <h3 class="low-priority priority-title">Baixa</h3>
-              <p class="care-description">
-                Paracetamol → <span class="low-priority">13:30</span>
-              </p>
-              <button class="do-care">Realizar cuidado</button>
-            </div>
+            <button class="modal-add-btn" onclick="showAddRemedioForm()">
+              + Adicionar Remédio/Cuidado
+            </button>
           </div>
-          <div class="elder-box">
-            <div class="elder-image-container">
-              <img src="../assets/idoso.png" alt="" class="elders-image" />
-              <img src="../assets/Subtract.png" alt="" class="subtract-icon" />
+
+          <div class="modal-section">
+            <h3 class="modal-section-title">Filhos</h3>
+            <div id="edit-filhos-list" class="modal-list"></div>
+            <div
+              class="modal-add-form"
+              id="add-filho-form"
+              style="display: none; margin-top: 10px"
+            >
+              <div class="modal-field">
+                <label>Nome do Filho:</label>
+                <input
+                  type="text"
+                  id="new-filho-nome"
+                  placeholder="Nome completo"
+                />
+              </div>
+              <div class="modal-field">
+                <label>Telefone:</label>
+                <input
+                  type="tel"
+                  id="new-filho-telefone"
+                  placeholder="(00) 00000-0000"
+                />
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 10px">
+                <button class="modal-btn modal-btn-save" onclick="addFilho()">
+                  Adicionar
+                </button>
+                <button
+                  class="modal-btn modal-btn-cancel"
+                  onclick="cancelAddFilho()"
+                >
+                  Cancelar
+                </button>
+              </div>
             </div>
-            <h2 class="elder-name">Nome do Idoso</h2>
-            <h2 class="elder-age">60 anos</h2>
-            <div class="elder-cares">
-              <h3 class="care-title">Prioridade dos cuidados:</h3>
-              <h3 class="high-priority priority-title">Alta</h3>
-              <p class="care-description">
-                Paracetamol → <span class="high-priority">13:30</span>
-              </p>
-              <h3 class="medium-priority priority-title">Medio</h3>
-              <p class="care-description">
-                Paracetamol → <span class="medio-priority">13:30</span>
-              </p>
-              <h3 class="low-priority priority-title">Baixa</h3>
-              <p class="care-description">
-                Paracetamol → <span class="low-priority">13:30</span>
-              </p>
-              <button class="do-care">Realizar cuidado</button>
-            </div>
+            <button class="modal-add-btn" onclick="showAddFilhoForm()">
+              + Adicionar Filho
+            </button>
           </div>
-          <div class="elder-box">
-            <div class="elder-image-container">
-              <img src="../assets/idoso.png" alt="" class="elders-image" />
-              <img src="../assets/Subtract.png" alt="" class="subtract-icon" />
+
+          <div class="modal-section">
+            <h3 class="modal-section-title">Visitas</h3>
+            <div id="edit-visitas-list" class="modal-list"></div>
+            <div
+              class="modal-add-form"
+              id="add-visita-form"
+              style="display: none; margin-top: 10px"
+            >
+              <div class="modal-field">
+                <label>Data da Visita:</label>
+                <input type="date" id="new-visita-data" />
+              </div>
+              <div class="modal-field">
+                <label>Responsável:</label>
+                <input
+                  type="text"
+                  id="new-visita-responsavel"
+                  placeholder="Nome do responsável"
+                />
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 10px">
+                <button class="modal-btn modal-btn-save" onclick="addVisita()">
+                  Marcar Visita
+                </button>
+                <button
+                  class="modal-btn modal-btn-cancel"
+                  onclick="cancelAddVisita()"
+                >
+                  Cancelar
+                </button>
+              </div>
             </div>
-            <h2 class="elder-name">Nome do Idoso</h2>
-            <h2 class="elder-age">60 anos</h2>
-            <div class="elder-cares">
-              <h3 class="care-title">Prioridade dos cuidados:</h3>
-              <h3 class="high-priority priority-title">Alta</h3>
-              <p class="care-description">
-                Paracetamol → <span class="high-priority">13:30</span>
-              </p>
-              <h3 class="medium-priority priority-title">Medio</h3>
-              <p class="care-description">
-                Paracetamol → <span class="medio-priority">13:30</span>
-              </p>
-              <h3 class="low-priority priority-title">Baixa</h3>
-              <p class="care-description">
-                Paracetamol → <span class="low-priority">13:30</span>
-              </p>
-              <button class="do-care">Realizar cuidado</button>
-            </div>
+            <button class="modal-add-btn" onclick="showAddVisitaForm()">
+              + Marcar Visita
+            </button>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              class="modal-btn modal-btn-delete"
+              onclick="deleteCurrentElderly()"
+            >
+              🗑️ Excluir Idoso
+            </button>
+            <button
+              class="modal-btn modal-btn-cancel"
+              onclick="closeEditModal()"
+            >
+              Cancelar
+            </button>
+            <button class="modal-btn modal-btn-save" onclick="saveEdit()">
+              Salvar
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <script>
-      function updateDateTime() {
-        const now = new Date();
-
-        const hours = String(now.getHours()).padStart(2, "0");
-        const minutes = String(now.getMinutes()).padStart(2, "0");
-        const seconds = String(now.getSeconds()).padStart(2, "0");
-        const timeStr = `${hours}:${minutes}:${seconds}`;
-
-        document.getElementById("time").textContent = timeStr;
-        if (document.getElementById("header-time")) {
-          document.getElementById("header-time").textContent = timeStr;
-        }
-
-        const day = now.getDate();
-        const months = [
-          "Janeiro",
-          "Fevereiro",
-          "Março",
-          "Abril",
-          "Maio",
-          "Junho",
-          "Julho",
-          "Agosto",
-          "Setembro",
-          "Outubro",
-          "Novembro",
-          "Dezembro",
-        ];
-        const month = months[now.getMonth()];
-        const year = now.getFullYear();
-        const dateStr = `${day} de ${month} de ${year}`;
-
-        document.getElementById("current-date").textContent = dateStr;
-      }
-
-      updateDateTime();
-      setInterval(updateDateTime, 1000);
-    </script>
+    <script src="../js/elderly_elders.js"></script>
   </body>
 </html>

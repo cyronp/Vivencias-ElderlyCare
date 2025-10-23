@@ -22,7 +22,7 @@ loginForm.addEventListener("submit", async (e) => {
       const data = await response.json();
       localStorage.setItem("username", data.username);
       localStorage.setItem("isLoggedIn", "true");
-      window.location.href = "/static/pages/elderly_form.html";
+      window.location.href = "/static/pages/home.html";
     } else {
       const error = await response.json();
       alert(error.detail || "Erro ao fazer login");
