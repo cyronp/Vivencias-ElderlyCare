@@ -4,248 +4,372 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ElderlyCare</title>
-    <link rel="stylesheet" href="../css/elders.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
   </head>
-  <body>
-    <div class="sidebar">
-      <div class="logo">
-        <div class="logo-icon">
-          <img src="../assets/elderly_icon.png" alt="" />
+  <body class="flex h-screen bg-gray-100">
+    <aside
+      class="w-72 m-2.5 bg-gradient-to-b from-sky-700 to-sky-800 text-white p-5 rounded-2xl flex flex-col"
+    >
+      <div class="flex items-center mb-8">
+        <div class="">
+          <img
+            src="../assets/elderly_icon.png"
+            alt="Logo"
+            class="w-full h-full"
+          />
         </div>
-        <div class="logo-text">ElderlyCare</div>
+        <div class="text-3xl font-semibold">ElderlyCare</div>
       </div>
-      <div class="date-time">
-        <div class="day" id="current-date"></div>
-        <div class="time" id="time"></div>
+
+      <div class="mb-8 opacity-95">
+        <div class="text-xl font-semibold" id="current-date"></div>
+        <div class="text-2xl font-semibold" id="time"></div>
       </div>
-      <div class="menu">
+
+      <nav class="flex flex-col gap-2.5 flex-1">
         <a
           href="/static/pages/home.html"
-          class="menu-item"
-          style="text-decoration: none; color: inherit"
+          class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
         >
-          <span class="menu-icon"
-            ><img src="../assets/home.svg" alt="" class="icons"
-          /></span>
+          <img
+            src="../assets/home.svg"
+            alt="Home"
+            class="w-10 h-10 brightness-0 invert"
+          />
           <span>Home</span>
         </a>
         <a
           href="/static/pages/elderly_elders.html"
-          class="menu-item active"
-          style="text-decoration: none; color: inherit"
+          class="flex items-center gap-2.5 p-2.5 rounded-3xl bg-white text-gray-800 no-underline text-lg"
         >
-          <span class="menu-icon"
-            ><img src="../assets/users.svg" alt="" class="icons active-icon"
-          /></span>
-          <span class="active-text">Idosos</span>
+          <img
+            src="../assets/users.svg"
+            alt="Idosos"
+            class="w-10 h-10 brightness-0"
+          />
+          <span>Idosos</span>
         </a>
         <a
           href="/static/pages/elderly_form.html"
-          class="menu-item"
-          style="text-decoration: none; color: inherit"
+          class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
         >
-          <span class="menu-icon"
-            ><img src="../assets/plus-circle.svg" alt="" class="icons"
-          /></span>
+          <img
+            src="../assets/plus-circle.svg"
+            alt="Adicionar"
+            class="w-10 h-10 brightness-0 invert"
+          />
           <span>Adicionar Idoso</span>
         </a>
-        <div class="menu-item">
-          <span class="menu-icon"
-            ><img src="../assets/document.svg" alt="" class="icons"
-          /></span>
+        <div
+          class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
+        >
+          <img
+            src="../assets/document.svg"
+            alt="Cuidados"
+            class="w-10 h-10 brightness-0 invert"
+          />
           <span>Cuidados</span>
         </div>
-      </div>
-      <div class="settings">
-        <span class="menu-icon"
-          ><img src="../assets/cog-8-tooth.svg" alt="" class="icons"
-        /></span>
+      </nav>
+
+      <div
+        class="mt-auto flex items-center gap-4 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
+      >
+        <img
+          src="../assets/cog-8-tooth.svg"
+          alt="Configurações"
+          class="w-10 h-10 brightness-0 invert"
+        />
         <span>Configuração</span>
       </div>
-    </div>
+    </aside>
 
-    <div class="main-content">
-      <div class="header">
-        <div class="header-right">
-          <div class="notification-icon">
-            <img src="../assets/bell.svg" alt="" class="icons" />
-            <span class="notification-badge hide-noti"></span>
+    <main class="flex-1 bg-white m-2.5 rounded-xl flex flex-col">
+      <header
+        class="bg-gradient-to-r from-sky-700 to-sky-800 flex justify-end items-center p-5 rounded-2xl"
+      >
+        <div class="flex items-center gap-4">
+          <div class="relative w-10 h-10 cursor-pointer">
+            <img
+              src="../assets/bell.svg"
+              alt="Notificações"
+              class="w-full h-full brightness-0 invert"
+            />
           </div>
-          <div class="user-section">
-            <div class="user-avatar"></div>
-            <span class="user-info">Admin</span>
+          <div class="flex items-center gap-2.5">
+            <div class="w-14 h-14 bg-white rounded-full"></div>
+            <span class="text-xl font-medium text-white">Admin</span>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div class="content-area">
-        <h1 class="elders-title">Lista de Cuidados</h1>
-        <div class="elders-container" id="elders-container"></div>
+      <div class="flex-1 p-6 md:p-12 overflow-y-auto">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
+          Lista de Idosos
+        </h1>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          id="elders-container"
+        ></div>
       </div>
-    </div>
+    </main>
 
-    <div id="edit-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title">Editar Idoso</h2>
-          <button class="modal-close" onclick="closeEditModal()">
+    <div
+      id="edit-modal"
+      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4"
+    >
+      <div
+        class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex justify-between items-center p-6 border-b border-gray-200 sticky top-0 bg-white"
+        >
+          <h2 class="text-2xl font-bold text-gray-800">Editar Idoso</h2>
+          <button
+            class="text-4xl text-gray-500 hover:text-gray-700 leading-none transition-colors"
+            onclick="closeEditModal()"
+          >
             &times;
           </button>
         </div>
 
-        <div class="modal-body">
-          <div class="modal-field">
-            <label for="edit-nome">Nome:</label>
-            <input type="text" id="edit-nome" placeholder="Nome do idoso" />
-          </div>
-
-          <div class="modal-field">
-            <label for="edit-idade">Idade:</label>
-            <input type="number" id="edit-idade" placeholder="Idade" />
-          </div>
-
-          <div class="modal-field">
-            <label for="edit-data-nascimento">Data de Nascimento:</label>
-            <input type="date" id="edit-data-nascimento" />
-          </div>
-
-          <div class="modal-section">
-            <h3 class="modal-section-title">Remédios/Cuidados</h3>
-            <div id="edit-remedios-list" class="modal-list"></div>
-            <div
-              class="modal-add-form"
-              id="add-remedio-form"
-              style="display: none; margin-top: 10px"
+        <div class="p-6 space-y-6">
+          <div class="space-y-2">
+            <label
+              for="edit-nome"
+              class="block text-sm font-medium text-gray-700"
+              >Nome:</label
             >
-              <div class="modal-field">
-                <label>Nome do Remédio/Cuidado:</label>
+            <input
+              type="text"
+              id="edit-nome"
+              placeholder="Nome do idoso"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="edit-idade"
+              class="block text-sm font-medium text-gray-700"
+              >Idade:</label
+            >
+            <input
+              type="number"
+              id="edit-idade"
+              placeholder="Idade"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="edit-data-nascimento"
+              class="block text-sm font-medium text-gray-700"
+              >Data de Nascimento:</label
+            >
+            <input
+              type="date"
+              id="edit-data-nascimento"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              Remédios/Cuidados
+            </h3>
+            <div id="edit-remedios-list" class="space-y-2 mb-4"></div>
+            <div
+              id="add-remedio-form"
+              style="display: none"
+              class="space-y-4 p-4 bg-white rounded-lg border border-gray-200 mb-4"
+            >
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Nome do Remédio/Cuidado:</label
+                >
                 <input
                   type="text"
                   id="new-remedio-nome"
                   placeholder="Ex: Paracetamol, Caminhada"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
               </div>
-              <div class="modal-field">
-                <label>Prioridade:</label>
-                <select id="new-remedio-prioridade">
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Prioridade:</label
+                >
+                <select
+                  id="new-remedio-prioridade"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                >
                   <option value="baixa">Baixa</option>
                   <option value="media">Média</option>
                   <option value="alta">Alta</option>
                 </select>
               </div>
-              <div class="modal-field">
-                <label>Horário:</label>
-                <input type="time" id="new-remedio-horario" />
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Horário:</label
+                >
+                <input
+                  type="time"
+                  id="new-remedio-horario"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                />
               </div>
-              <div style="display: flex; gap: 10px; margin-top: 10px">
-                <button class="modal-btn modal-btn-save" onclick="addRemedio()">
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  onclick="addRemedio()"
+                >
                   Adicionar
                 </button>
                 <button
-                  class="modal-btn modal-btn-cancel"
+                  class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
                   onclick="cancelAddRemedio()"
                 >
                   Cancelar
                 </button>
               </div>
             </div>
-            <button class="modal-add-btn" onclick="showAddRemedioForm()">
+            <button
+              class="w-full bg-sky-100 hover:bg-sky-200 text-sky-700 px-4 py-3 rounded-lg transition-colors font-medium"
+              onclick="showAddRemedioForm()"
+            >
               + Adicionar Remédio/Cuidado
             </button>
           </div>
 
-          <div class="modal-section">
-            <h3 class="modal-section-title">Filhos</h3>
-            <div id="edit-filhos-list" class="modal-list"></div>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Filhos</h3>
+            <div id="edit-filhos-list" class="space-y-2 mb-4"></div>
             <div
-              class="modal-add-form"
               id="add-filho-form"
-              style="display: none; margin-top: 10px"
+              style="display: none"
+              class="space-y-4 p-4 bg-white rounded-lg border border-gray-200 mb-4"
             >
-              <div class="modal-field">
-                <label>Nome do Filho:</label>
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Nome do Filho:</label
+                >
                 <input
                   type="text"
                   id="new-filho-nome"
                   placeholder="Nome completo"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
               </div>
-              <div class="modal-field">
-                <label>Telefone:</label>
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Telefone:</label
+                >
                 <input
                   type="tel"
                   id="new-filho-telefone"
                   placeholder="(00) 00000-0000"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
               </div>
-              <div style="display: flex; gap: 10px; margin-top: 10px">
-                <button class="modal-btn modal-btn-save" onclick="addFilho()">
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  onclick="addFilho()"
+                >
                   Adicionar
                 </button>
                 <button
-                  class="modal-btn modal-btn-cancel"
+                  class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
                   onclick="cancelAddFilho()"
                 >
                   Cancelar
                 </button>
               </div>
             </div>
-            <button class="modal-add-btn" onclick="showAddFilhoForm()">
+            <button
+              class="w-full bg-sky-100 hover:bg-sky-200 text-sky-700 px-4 py-3 rounded-lg transition-colors font-medium"
+              onclick="showAddFilhoForm()"
+            >
               + Adicionar Filho
             </button>
           </div>
 
-          <div class="modal-section">
-            <h3 class="modal-section-title">Visitas</h3>
-            <div id="edit-visitas-list" class="modal-list"></div>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Visitas</h3>
+            <div id="edit-visitas-list" class="space-y-2 mb-4"></div>
             <div
-              class="modal-add-form"
               id="add-visita-form"
-              style="display: none; margin-top: 10px"
+              style="display: none"
+              class="space-y-4 p-4 bg-white rounded-lg border border-gray-200 mb-4"
             >
-              <div class="modal-field">
-                <label>Data da Visita:</label>
-                <input type="date" id="new-visita-data" />
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Data da Visita:</label
+                >
+                <input
+                  type="date"
+                  id="new-visita-data"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                />
               </div>
-              <div class="modal-field">
-                <label>Responsável:</label>
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700"
+                  >Responsável:</label
+                >
                 <input
                   type="text"
                   id="new-visita-responsavel"
                   placeholder="Nome do responsável"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
               </div>
-              <div style="display: flex; gap: 10px; margin-top: 10px">
-                <button class="modal-btn modal-btn-save" onclick="addVisita()">
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  onclick="addVisita()"
+                >
                   Marcar Visita
                 </button>
                 <button
-                  class="modal-btn modal-btn-cancel"
+                  class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
                   onclick="cancelAddVisita()"
                 >
                   Cancelar
                 </button>
               </div>
             </div>
-            <button class="modal-add-btn" onclick="showAddVisitaForm()">
+            <button
+              class="w-full bg-sky-100 hover:bg-sky-200 text-sky-700 px-4 py-3 rounded-lg transition-colors font-medium"
+              onclick="showAddVisitaForm()"
+            >
               + Marcar Visita
             </button>
           </div>
 
-          <div class="modal-actions">
+          <div class="flex gap-3 pt-6 border-t border-gray-200">
             <button
-              class="modal-btn modal-btn-delete"
+              class="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-lg transition-colors font-medium"
               onclick="deleteCurrentElderly()"
             >
               🗑️ Excluir Idoso
             </button>
             <button
-              class="modal-btn modal-btn-cancel"
+              class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors font-medium"
               onclick="closeEditModal()"
             >
               Cancelar
             </button>
-            <button class="modal-btn modal-btn-save" onclick="saveEdit()">
+            <button
+              class="flex-1 bg-sky-600 hover:bg-sky-700 text-white px-4 py-3 rounded-lg transition-colors font-medium"
+              onclick="saveEdit()"
+            >
               Salvar
             </button>
           </div>

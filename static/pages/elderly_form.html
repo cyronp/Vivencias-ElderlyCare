@@ -4,244 +4,211 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ElderlyCare</title>
-    <link rel="stylesheet" href="../css/forms.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
   </head>
-  <body>
-    <div class="sidebar">
-      <div class="logo">
-        <div class="logo-icon">
-          <img src="../assets/elderly_icon.png" alt="" />
+  <body class="flex h-screen bg-gray-100">
+    <aside class="w-72 m-2.5 bg-gradient-to-b from-sky-700 to-sky-800 text-white p-5 rounded-2xl flex flex-col">
+      <div class="flex items-center mb-8">
+        <div class="">
+          <img src="../assets/elderly_icon.png" alt="Logo" class="w-full h-full" />
         </div>
-        <div class="logo-text">ElderlyCare</div>
+        <div class="text-3xl font-semibold">ElderlyCare</div>
       </div>
-      <div class="date-time">
-        <div class="day" id="current-date"></div>
-        <div class="time" id="time"></div>
+      
+      <div class="mb-8 opacity-95">
+        <div class="text-xl font-semibold" id="current-date"></div>
+        <div class="text-2xl font-semibold" id="time"></div>
       </div>
-      <div class="menu">
-        <a
-          href="/static/pages/home.html"
-          class="menu-item"
-          style="text-decoration: none; color: inherit"
-        >
-          <span class="menu-icon"
-            ><img src="../assets/home.svg" alt="" class="icons"
-          /></span>
+      
+      <nav class="flex flex-col gap-2.5 flex-1">
+        <a href="/static/pages/home.html" class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors">
+          <img src="../assets/home.svg" alt="Home" class="w-10 h-10 brightness-0 invert" />
           <span>Home</span>
         </a>
-        <a
-          href="/static/pages/elderly_elders.html"
-          class="menu-item"
-          style="text-decoration: none; color: inherit"
-        >
-          <span class="menu-icon"
-            ><img
-              src="../assets/users.svg"
-              alt=""
-              class="icons"
-              style="color: white"
-          /></span>
+        <a href="/static/pages/elderly_elders.html" class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors">
+          <img src="../assets/users.svg" alt="Idosos" class="w-10 h-10 brightness-0 invert" />
           <span>Idosos</span>
         </a>
-        <a
-          href="/static/pages/elderly_form.html"
-          class="menu-item active"
-          style="text-decoration: none; color: inherit"
-        >
-          <span class="menu-icon"
-            ><img
-              src="../assets/plus-circle.svg"
-              alt=""
-              class="icons active-icon"
-          /></span>
-          <span class="active-text">Adicionar Idoso</span>
+        <a href="/static/pages/elderly_form.html" class="flex items-center gap-2.5 p-2.5 rounded-3xl bg-white text-gray-800 no-underline text-lg">
+          <img src="../assets/plus-circle.svg" alt="Adicionar" class="w-10 h-10 brightness-0" />
+          <span>Adicionar Idoso</span>
         </a>
-        <div class="menu-item">
-          <span class="menu-icon"
-            ><img src="../assets/document.svg" alt="" class="icons"
-          /></span>
+        <div class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors">
+          <img src="../assets/document.svg" alt="Cuidados" class="w-10 h-10 brightness-0 invert" />
           <span>Cuidados</span>
         </div>
-      </div>
-      <div class="settings">
-        <span class="menu-icon"
-          ><img src="../assets/cog-8-tooth.svg" alt="" class="icons"
-        /></span>
+      </nav>
+      
+      <div class="mt-auto flex items-center gap-4 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors">
+        <img src="../assets/cog-8-tooth.svg" alt="Configurações" class="w-10 h-10 brightness-0 invert" />
         <span>Configuração</span>
       </div>
-    </div>
+    </aside>
 
-    <div class="main-content">
-      <div class="header">
-        <div class="header-right">
-          <div class="notification-icon">
-            <img src="../assets/bell.svg" alt="" class="icons" />
-            <span class="notification-badge hide-noti"></span>
+    <main class="flex-1 bg-white m-2.5 rounded-xl flex flex-col">
+      <header class="bg-gradient-to-r from-sky-700 to-sky-800 flex justify-end items-center p-5 rounded-2xl">
+        <div class="flex items-center gap-4">
+          <div class="relative w-10 h-10 cursor-pointer">
+            <img src="../assets/bell.svg" alt="Notificações" class="w-full h-full brightness-0 invert" />
           </div>
-          <div class="user-section">
-            <div class="user-avatar"></div>
-            <span class="user-info">Admin</span>
+          <div class="flex items-center gap-2.5">
+            <div class="w-14 h-14 bg-white rounded-full"></div>
+            <span class="text-xl font-medium text-white">Admin</span>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div class="content-area">
-        <div class="progress-steps">
-          <div class="step active">
-            <div class="step-icon">
-              <img
-                src="../assets/user.svg"
-                alt="Info Idoso"
-                class="step-icon-img"
-              />
+      <div class="flex-1 p-6 md:p-12 overflow-y-auto">
+        <div class="flex items-center justify-center gap-4 md:gap-10 mb-12 relative">
+          <div class="step flex flex-col items-center relative active">
+            <div class="step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-sky-800 border-[3px] border-sky-800 flex items-center justify-center z-10 mb-2">
+              <img src="../assets/user.svg" alt="Info Idoso" class="w-6 h-6 brightness-0 invert" />
             </div>
-            <div class="step-label">Info Idoso</div>
-            <div class="step-connector"></div>
+            <div class="step-label text-xs md:text-sm text-gray-700 text-center">Info Idoso</div>
+            <div class="step-connector absolute top-6 left-1/2 w-20 md:w-40 h-[3px] bg-sky-800"></div>
           </div>
-          <div class="step">
-            <div class="step-icon">
-              <img
-                src="../assets/users.svg"
-                alt="Filhos"
-                class="step-icon-img"
-              />
+          <div class="step flex flex-col items-center relative">
+            <div class="step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-[3px] border-gray-300 flex items-center justify-center z-10 mb-2">
+              <img src="../assets/users.svg" alt="Filhos" class="w-6 h-6 brightness-0 opacity-60" />
             </div>
-            <div class="step-label">Filho(s)</div>
-            <div class="step-connector"></div>
+            <div class="step-label text-xs md:text-sm text-gray-500 text-center">Filho(s)</div>
+            <div class="step-connector absolute top-6 left-1/2 w-20 md:w-40 h-[3px] bg-gray-300"></div>
           </div>
-          <div class="step">
-            <div class="step-icon">
-              <img
-                src="../assets/document-plus.svg"
-                alt="Cuidados"
-                class="step-icon-img"
-              />
+          <div class="step flex flex-col items-center relative">
+            <div class="step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-[3px] border-gray-300 flex items-center justify-center z-10 mb-2">
+              <img src="../assets/document-plus.svg" alt="Cuidados" class="w-6 h-6 brightness-0 opacity-60" />
             </div>
-            <div class="step-label">Cuidados</div>
-            <div class="step-connector"></div>
+            <div class="step-label text-xs md:text-sm text-gray-500 text-center">Cuidados</div>
+            <div class="step-connector absolute top-6 left-1/2 w-20 md:w-40 h-[3px] bg-gray-300"></div>
           </div>
-          <div class="step">
-            <div class="step-icon">
-              <img
-                src="../assets/check.svg"
-                alt="Confirmação"
-                class="step-icon-img"
-              />
+          <div class="step flex flex-col items-center relative">
+            <div class="step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-[3px] border-gray-300 flex items-center justify-center z-10 mb-2">
+              <img src="../assets/check.svg" alt="Confirmação" class="w-6 h-6 brightness-0 opacity-60" />
             </div>
-            <div class="step-label">Confirmação</div>
+            <div class="step-label text-xs md:text-sm text-gray-500 text-center">Confirmação</div>
           </div>
         </div>
 
         <!-- Step 1: Info do Idoso -->
-        <div class="form-container" id="step1" style="display: block">
-          <h2 class="form-title">Informações do Idoso</h2>
-          <div class="form-group">
-            <label class="form-label"
-              >Nome Completo <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="elderly-name"
-              class="form-input"
-              placeholder="Digite o nome completo do idoso"
-            />
+        <div class="max-w-2xl mx-auto" id="step1" style="display: block">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Informações do Idoso</h2>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Nome Completo <span class="text-red-600">*</span></label
+              >
+              <input
+                type="text"
+                id="elderly-name"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                placeholder="Digite o nome completo do idoso"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Idade <span class="text-red-600">*</span></label
+              >
+              <input
+                type="number"
+                id="elderly-age"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                placeholder="Digite a idade"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Data de Nascimento <span class="text-red-600">*</span></label
+              >
+              <input type="date" id="elderly-birth" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all" />
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label"
-              >Idade <span class="required">*</span></label
-            >
-            <input
-              type="number"
-              id="elderly-age"
-              class="form-input"
-              placeholder="Digite a idade"
-            />
+          <div class="flex justify-end mt-8">
+            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium" onclick="nextStep(2)">
+              Próximo
+            </button>
           </div>
-          <div class="form-group">
-            <label class="form-label"
-              >Data de Nascimento <span class="required">*</span></label
-            >
-            <input type="date" id="elderly-birth" class="form-input" />
-          </div>
-          <button type="button" class="submit-btn" onclick="nextStep(2)">
-            Próximo
-          </button>
         </div>
 
         <!-- Step 2: Filhos -->
-        <div class="form-container" id="step2" style="display: none">
-          <h2 class="form-title">Filhos do Idoso</h2>
-          <button type="button" class="add-child-btn" onclick="addChildForm()">
-            Adicionar Filho
+        <div class="max-w-2xl mx-auto" id="step2" style="display: none">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Filhos do Idoso</h2>
+          <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6" onclick="addChildForm()">
+            + Adicionar Filho
           </button>
-          <div id="children-container">
-            <div class="child-form-group">
-              <div class="form-group">
-                <label class="form-label"
-                  >Nome do Filho <span class="required">*</span></label
+          <div id="children-container" class="space-y-6">
+            <div class="child-form-group bg-gray-50 p-6 rounded-lg space-y-4 border-2 border-gray-200">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Nome do Filho <span class="text-red-600">*</span></label
                 >
                 <input
                   type="text"
-                  class="form-input child-name"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all child-name"
                   placeholder="Digite o nome completo do filho"
                 />
               </div>
-              <div class="form-group">
-                <label class="form-label"
-                  >Telefone <span class="required">*</span></label
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Telefone <span class="text-red-600">*</span></label
                 >
                 <input
                   type="tel"
-                  class="form-input child-phone"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all child-phone"
                   placeholder="Digite o telefone do filho"
                 />
               </div>
             </div>
           </div>
-          <div class="button-group">
+          <div class="flex justify-between gap-3 mt-8">
             <button
               type="button"
-              class="submit-btn secondary-btn"
+              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
               onclick="prevStep(1)"
             >
               Voltar
             </button>
-            <button type="button" class="submit-btn" onclick="nextStep(3)">
+            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium" onclick="nextStep(3)">
               Próximo
             </button>
           </div>
         </div>
 
         <!-- Step 3: Cuidados -->
-        <div class="form-container" id="step3" style="display: none">
-          <h2 class="form-title">Cuidados do Idoso</h2>
-          <button type="button" class="add-child-btn" onclick="addCareForm()">
-            Adicionar Cuidado
+        <div class="max-w-2xl mx-auto" id="step3" style="display: none">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Cuidados do Idoso</h2>
+          <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6" onclick="addCareForm()">
+            + Adicionar Cuidado
           </button>
-          <div id="cares-container">
-            <div class="child-form-group">
-              <div class="form-group">
-                <label class="form-label"
+          <div id="cares-container" class="space-y-6">
+            <div class="child-form-group bg-gray-50 p-6 rounded-lg space-y-4 border-2 border-gray-200">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
                   >Nome do Medicamento/Cuidado
-                  <span class="required">*</span></label
+                  <span class="text-red-600">*</span></label
                 >
                 <input
                   type="text"
-                  class="form-input care-name"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all care-name"
                   placeholder="Ex: Paracetamol, Caminhada, etc."
                 />
               </div>
-              <div class="form-group">
-                <label class="form-label"
-                  >Horário <span class="required">*</span></label
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Horário <span class="text-red-600">*</span></label
                 >
-                <input type="time" class="form-input care-time" />
+                <input type="time" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all care-time" />
               </div>
-              <div class="form-group">
-                <label class="form-label"
-                  >Prioridade <span class="required">*</span></label
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Prioridade <span class="text-red-600">*</span></label
                 >
-                <select class="form-input care-priority">
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all care-priority">
                   <option value="">Selecione a prioridade</option>
                   <option value="alta">Alta</option>
                   <option value="media">Média</option>
@@ -250,46 +217,46 @@
               </div>
             </div>
           </div>
-          <div class="button-group">
+          <div class="flex justify-between gap-3 mt-8">
             <button
               type="button"
-              class="submit-btn secondary-btn"
+              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
               onclick="prevStep(2)"
             >
               Voltar
             </button>
-            <button type="button" class="submit-btn" onclick="nextStep(4)">
+            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium" onclick="nextStep(4)">
               Próximo
             </button>
           </div>
         </div>
 
         <!-- Step 4: Confirmação -->
-        <div class="form-container" id="step4" style="display: none">
-          <h2 class="form-title">Confirmação dos Dados</h2>
-          <div class="confirmation-container">
-            <div class="confirmation-section">
-              <h3 class="confirmation-title">Informações do Idoso</h3>
-              <div id="elderly-info-confirm"></div>
+        <div class="max-w-2xl mx-auto" id="step4" style="display: none">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Confirmação dos Dados</h2>
+          <div class="space-y-6">
+            <div class="bg-sky-50 p-6 rounded-lg border-2 border-sky-200">
+              <h3 class="text-lg font-semibold text-sky-900 mb-4">Informações do Idoso</h3>
+              <div id="elderly-info-confirm" class="text-gray-700 space-y-2"></div>
             </div>
-            <div class="confirmation-section">
-              <h3 class="confirmation-title">Filhos</h3>
-              <div id="children-confirm"></div>
+            <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+              <h3 class="text-lg font-semibold text-green-900 mb-4">Filhos</h3>
+              <div id="children-confirm" class="text-gray-700 space-y-2"></div>
             </div>
-            <div class="confirmation-section">
-              <h3 class="confirmation-title">Cuidados</h3>
-              <div id="cares-confirm"></div>
+            <div class="bg-orange-50 p-6 rounded-lg border-2 border-orange-200">
+              <h3 class="text-lg font-semibold text-orange-900 mb-4">Cuidados</h3>
+              <div id="cares-confirm" class="text-gray-700 space-y-2"></div>
             </div>
           </div>
-          <div class="button-group">
+          <div class="flex justify-between gap-3 mt-8">
             <button
               type="button"
-              class="submit-btn secondary-btn"
+              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
               onclick="prevStep(3)"
             >
               Voltar
             </button>
-            <button type="button" class="submit-btn" onclick="submitForm()">
+            <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium" onclick="submitForm()">
               Finalizar Cadastro
             </button>
           </div>
@@ -300,3 +267,4 @@
     <script src="../js/elderly_form.js"></script>
   </body>
 </html>
+
