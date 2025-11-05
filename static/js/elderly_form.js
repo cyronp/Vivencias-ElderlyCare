@@ -42,12 +42,43 @@ function updateProgressSteps() {
   const steps = document.querySelectorAll(".step");
   steps.forEach((step, index) => {
     const stepNumber = index + 1;
-    step.classList.remove("active", "completed");
+    const icon = step.querySelector(".step-icon");
+    const label = step.querySelector(".step-label");
+    const connector = step.querySelector(".step-connector");
 
     if (stepNumber < currentStep) {
-      step.classList.add("completed");
+      // Completed steps - filled sky with white icon
+      icon.className =
+        "step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-sky-800 border-[3px] border-sky-800 flex items-center justify-center z-10 mb-2";
+      icon.querySelector("img").className = "w-6 h-6 brightness-0 invert";
+      label.className =
+        "step-label text-xs md:text-sm text-gray-700 text-center";
+      if (connector) {
+        connector.className =
+          "step-connector absolute top-6 left-1/2 w-20 md:w-40 h-[3px] bg-sky-800";
+      }
     } else if (stepNumber === currentStep) {
-      step.classList.add("active");
+      // Active step - filled sky with white icon
+      icon.className =
+        "step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-sky-800 border-[3px] border-sky-800 flex items-center justify-center z-10 mb-2";
+      icon.querySelector("img").className = "w-6 h-6 brightness-0 invert";
+      label.className =
+        "step-label text-xs md:text-sm text-sky-800 font-semibold text-center";
+      if (connector) {
+        connector.className =
+          "step-connector absolute top-6 left-1/2 w-20 md:w-40 h-[3px] bg-gray-300";
+      }
+    } else {
+      // Future steps - white background with gray border
+      icon.className =
+        "step-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-[3px] border-gray-300 flex items-center justify-center z-10 mb-2";
+      icon.querySelector("img").className = "w-6 h-6 brightness-0 opacity-60";
+      label.className =
+        "step-label text-xs md:text-sm text-gray-500 text-center";
+      if (connector) {
+        connector.className =
+          "step-connector absolute top-6 left-1/2 w-20 md:w-40 h-[3px] bg-gray-300";
+      }
     }
   });
 }
@@ -73,15 +104,16 @@ function prevStep(stepNumber) {
 function addChildForm() {
   const container = document.getElementById("children-container");
   const newForm = document.createElement("div");
-  newForm.className = "child-form-group";
+  newForm.className =
+    "child-form-group bg-gray-50 p-6 rounded-lg space-y-4 border-2 border-gray-200";
   newForm.innerHTML = `
-    <div class="form-group">
-      <label class="form-label">Nome do Filho <span class="required">*</span></label>
-      <input type="text" class="form-input child-name" placeholder="Digite o nome completo do filho">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Filho <span class="text-red-600">*</span></label>
+      <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all child-name" placeholder="Digite o nome completo do filho">
     </div>
-    <div class="form-group">
-      <label class="form-label">Telefone <span class="required">*</span></label>
-      <input type="tel" class="form-input child-phone" placeholder="Digite o telefone do filho">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Telefone <span class="text-red-600">*</span></label>
+      <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all child-phone" placeholder="Digite o telefone do filho">
     </div>
   `;
   container.appendChild(newForm);
@@ -90,19 +122,20 @@ function addChildForm() {
 function addCareForm() {
   const container = document.getElementById("cares-container");
   const newForm = document.createElement("div");
-  newForm.className = "child-form-group";
+  newForm.className =
+    "child-form-group bg-gray-50 p-6 rounded-lg space-y-4 border-2 border-gray-200";
   newForm.innerHTML = `
-    <div class="form-group">
-      <label class="form-label">Nome do Medicamento/Cuidado <span class="required">*</span></label>
-      <input type="text" class="form-input care-name" placeholder="Ex: Paracetamol, Caminhada, etc.">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Medicamento/Cuidado <span class="text-red-600">*</span></label>
+      <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all care-name" placeholder="Ex: Paracetamol, Caminhada, etc.">
     </div>
-    <div class="form-group">
-      <label class="form-label">Horário <span class="required">*</span></label>
-      <input type="time" class="form-input care-time">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Horário <span class="text-red-600">*</span></label>
+      <input type="time" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all care-time">
     </div>
-    <div class="form-group">
-      <label class="form-label">Prioridade <span class="required">*</span></label>
-      <select class="form-input care-priority">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Prioridade <span class="text-red-600">*</span></label>
+      <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all care-priority">
         <option value="">Selecione a prioridade</option>
         <option value="alta">Alta</option>
         <option value="media">Média</option>
@@ -119,9 +152,9 @@ function showConfirmation() {
   const elderlyBirth = document.getElementById("elderly-birth").value;
 
   document.getElementById("elderly-info-confirm").innerHTML = `
-    <p><strong>Nome:</strong> ${elderlyName}</p>
-    <p><strong>Idade:</strong> ${elderlyAge} anos</p>
-    <p><strong>Data de Nascimento:</strong> ${elderlyBirth}</p>
+    <p class="text-sm"><span class="font-semibold">Nome:</span> ${elderlyName}</p>
+    <p class="text-sm"><span class="font-semibold">Idade:</span> ${elderlyAge} anos</p>
+    <p class="text-sm"><span class="font-semibold">Data de Nascimento:</span> ${elderlyBirth}</p>
   `;
 
   const childNames = document.querySelectorAll(".child-name");
@@ -131,12 +164,13 @@ function showConfirmation() {
   childNames.forEach((nameInput, index) => {
     if (nameInput.value) {
       childrenHTML += `
-        <p><strong>Filho ${index + 1}:</strong> ${nameInput.value} - Tel: ${childPhones[index].value}</p>
+        <p class="text-sm"><span class="font-semibold">Filho ${index + 1}:</span> ${nameInput.value} - Tel: ${childPhones[index].value}</p>
       `;
     }
   });
   document.getElementById("children-confirm").innerHTML =
-    childrenHTML || "<p>Nenhum filho cadastrado</p>";
+    childrenHTML ||
+    "<p class='text-sm text-gray-500'>Nenhum filho cadastrado</p>";
 
   const careNames = document.querySelectorAll(".care-name");
   const careTimes = document.querySelectorAll(".care-time");
@@ -148,17 +182,18 @@ function showConfirmation() {
       const priority = carePriorities[index].value;
       const priorityClass =
         priority === "alta"
-          ? "high-priority"
+          ? "text-red-600 font-semibold"
           : priority === "media"
-            ? "medium-priority"
-            : "low-priority";
+            ? "text-orange-500 font-semibold"
+            : "text-green-600 font-semibold";
       caresHTML += `
-        <p><strong>${nameInput.value}</strong> - <span class="${priorityClass}">${careTimes[index].value}</span> (Prioridade: ${priority})</p>
+        <p class="text-sm"><span class="font-semibold">${nameInput.value}</span> - <span class="${priorityClass}">${careTimes[index].value}</span> (Prioridade: ${priority})</p>
       `;
     }
   });
   document.getElementById("cares-confirm").innerHTML =
-    caresHTML || "<p>Nenhum cuidado cadastrado</p>";
+    caresHTML ||
+    "<p class='text-sm text-gray-500'>Nenhum cuidado cadastrado</p>";
 }
 
 function submitForm() {
@@ -232,3 +267,4 @@ function submitForm() {
       );
     });
 }
+
