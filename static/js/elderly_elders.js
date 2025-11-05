@@ -44,7 +44,8 @@ function getPriorityClass(priority) {
 
 function createElderBox(idoso) {
   const elderBox = document.createElement("div");
-  elderBox.className = "elder-box";
+  elderBox.className =
+    "bg-white rounded-2xl shadow-lg p-6 flex flex-col h-full";
 
   const remediosPorPrioridade = {
     alta: [],
@@ -66,38 +67,41 @@ function createElderBox(idoso) {
   let caresHTML = "";
 
   if (remediosPorPrioridade.alta.length > 0) {
-    caresHTML += '<h3 class="high-priority priority-title">Alta</h3>';
+    caresHTML +=
+      '<h3 class="text-red-600 font-semibold text-lg mb-2">Alta</h3>';
     remediosPorPrioridade.alta.forEach((remedio) => {
-      caresHTML += `<p class="care-description">${remedio.nome} → <span class="high-priority">${remedio.horario}</span></p>`;
+      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-red-600 font-medium">${remedio.horario}</span></p>`;
     });
   }
 
   if (remediosPorPrioridade.media.length > 0) {
-    caresHTML += '<h3 class="medium-priority priority-title">Média</h3>';
+    caresHTML +=
+      '<h3 class="text-orange-500 font-semibold text-lg mb-2 mt-3">Média</h3>';
     remediosPorPrioridade.media.forEach((remedio) => {
-      caresHTML += `<p class="care-description">${remedio.nome} → <span class="medium-priority">${remedio.horario}</span></p>`;
+      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-orange-500 font-medium">${remedio.horario}</span></p>`;
     });
   }
 
   if (remediosPorPrioridade.baixa.length > 0) {
-    caresHTML += '<h3 class="low-priority priority-title">Baixa</h3>';
+    caresHTML +=
+      '<h3 class="text-green-600 font-semibold text-lg mb-2 mt-3">Baixa</h3>';
     remediosPorPrioridade.baixa.forEach((remedio) => {
-      caresHTML += `<p class="care-description">${remedio.nome} → <span class="low-priority">${remedio.horario}</span></p>`;
+      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-green-600 font-medium">${remedio.horario}</span></p>`;
     });
   }
 
   elderBox.innerHTML = `
-    <div class="elder-image-container">
-      <img src="../assets/idoso.png" alt="" class="elders-image">
-      <img src="../assets/Subtract.png" alt="" class="subtract-icon" onclick="openEditModal(${idoso.id})">
+    <div class="relative flex justify-between items-start mb-4">
+      <img src="../assets/idoso.png" alt="" class="w-16 h-16 rounded-full">
+      <img src="../assets/Subtract.png" alt="" class="w-10 h-10 cursor-pointer hover:opacity-75 transition-opacity" onclick="openEditModal(${idoso.id})">
     </div>
-    <h2 class="elder-name">${idoso.nome}</h2>
-    <h2 class="elder-age">${idoso.idade} anos</h2>
-    <div class="elder-cares">
-      <h3 class="care-title">Prioridade dos cuidados:</h3>
-      ${caresHTML || "<p>Nenhum cuidado cadastrado</p>"}
+    <h2 class="text-2xl font-bold text-gray-800 mb-1">${idoso.nome}</h2>
+    <h3 class="text-xl text-gray-600 mb-4">${idoso.idade} anos</h3>
+    <div class="flex-1 mb-4">
+      <h4 class="text-lg font-semibold text-gray-800 mb-3">Prioridade dos cuidados:</h4>
+      <div class="text-sm">${caresHTML || '<p class="text-gray-400">Nenhum cuidado cadastrado</p>'}</div>
     </div>
-    <button class="do-care" onclick="performCare(${idoso.id})">Realizar cuidado</button>
+    <button class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl text-lg font-medium transition-colors mt-auto" onclick="performCare(${idoso.id})">Realizar cuidado</button>
   `;
 
   return elderBox;
@@ -122,7 +126,7 @@ function loadElderly() {
 
       if (idosos.length === 0) {
         container.innerHTML =
-          '<p style="text-align: center; color: #707070ff; font-size: 18px;">Nenhum idoso cadastrado ainda.</p>';
+          '<p class="text-center text-gray-500 text-lg col-span-full py-12">Nenhum idoso cadastrado ainda.</p>';
         return;
       }
 
@@ -151,7 +155,9 @@ function openEditModal(idosoId) {
 
       currentEditingIdoso = idoso;
       populateEditModal(idoso);
-      document.getElementById("edit-modal").classList.add("active");
+      const modal = document.getElementById("edit-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
     })
     .catch((error) => {
       console.error("Erro:", error);
@@ -160,7 +166,9 @@ function openEditModal(idosoId) {
 }
 
 function closeEditModal() {
-  document.getElementById("edit-modal").classList.remove("active");
+  const modal = document.getElementById("edit-modal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
   currentEditingIdoso = null;
 }
 
@@ -185,13 +193,14 @@ function populateEditModal(idoso) {
   remediosList.innerHTML = "";
   idoso.remedios.forEach((remedio, index) => {
     const item = document.createElement("div");
-    item.className = "modal-list-item";
+    item.className =
+      "flex justify-between items-center p-3 bg-white border border-gray-200 rounded-lg";
     item.innerHTML = `
-      <div class="modal-list-item-info">
-        <strong>${remedio.nome}</strong><br>
-        Prioridade: ${remedio.dosagem || "Não definida"} | Horário: ${remedio.horario}
+      <div class="flex-1">
+        <strong class="text-gray-800">${remedio.nome}</strong><br>
+        <span class="text-sm text-gray-600">Prioridade: ${remedio.dosagem || "Não definida"} | Horário: ${remedio.horario}</span>
       </div>
-      <button class="modal-list-item-remove" onclick="removeRemedio(${index})">Remover</button>
+      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeRemedio(${index})">Remover</button>
     `;
     remediosList.appendChild(item);
   });
@@ -200,13 +209,14 @@ function populateEditModal(idoso) {
   filhosList.innerHTML = "";
   idoso.filhos.forEach((filho, index) => {
     const item = document.createElement("div");
-    item.className = "modal-list-item";
+    item.className =
+      "flex justify-between items-center p-3 bg-white border border-gray-200 rounded-lg";
     item.innerHTML = `
-      <div class="modal-list-item-info">
-        <strong>${filho.nome}</strong><br>
-        Telefone: ${filho.telefone || "Não informado"}
+      <div class="flex-1">
+        <strong class="text-gray-800">${filho.nome}</strong><br>
+        <span class="text-sm text-gray-600">Telefone: ${filho.telefone || "Não informado"}</span>
       </div>
-      <button class="modal-list-item-remove" onclick="removeFilho(${index})">Remover</button>
+      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeFilho(${index})">Remover</button>
     `;
     filhosList.appendChild(item);
   });
@@ -216,22 +226,23 @@ function populateEditModal(idoso) {
   if (idoso.visitas && idoso.visitas.length > 0) {
     idoso.visitas.forEach((visita, index) => {
       const item = document.createElement("div");
-      item.className = "modal-list-item";
+      item.className =
+        "flex justify-between items-center p-3 bg-white border border-gray-200 rounded-lg";
       const dataFormatada = new Date(visita.data_visita).toLocaleDateString(
         "pt-BR"
       );
       item.innerHTML = `
-        <div class="modal-list-item-info">
-          <strong>Data: ${dataFormatada}</strong><br>
-          Responsável: ${visita.responsavel || "Não informado"}
+        <div class="flex-1">
+          <strong class="text-gray-800">Data: ${dataFormatada}</strong><br>
+          <span class="text-sm text-gray-600">Responsável: ${visita.responsavel || "Não informado"}</span>
         </div>
-        <button class="modal-list-item-remove" onclick="removeVisita(${index})">Remover</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeVisita(${index})">Remover</button>
       `;
       visitasList.appendChild(item);
     });
   } else {
     visitasList.innerHTML =
-      '<p style="color: #999; text-align: center;">Nenhuma visita marcada</p>';
+      '<p class="text-gray-400 text-center py-3">Nenhuma visita marcada</p>';
   }
 }
 
@@ -414,3 +425,4 @@ function performCare(idosoId) {
 }
 
 loadElderly();
+

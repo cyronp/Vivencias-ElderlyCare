@@ -65,12 +65,12 @@ function loadNextCares(idosos) {
       idoso.remedios.forEach((remedio) => {
         proximosCuidadosHtml.push({
           html: `
-            <div class="care-item">
-              <div class="care-info">
-                <strong class="care-patient">${idoso.nome}</strong>
-                <span class="care-description">${remedio.nome} - ${remedio.dosagem}</span>
+            <div class="p-4 border-l-4 border-sky-600 mb-2.5 bg-gray-50 rounded-lg flex justify-between items-center hover:bg-gray-100 transition-all hover:translate-x-1">
+              <div class="flex flex-col gap-1">
+                <strong class="text-gray-800 text-lg">${idoso.nome}</strong>
+                <span class="text-gray-600 text-sm">${remedio.nome} - ${remedio.dosagem}</span>
               </div>
-              <span class="care-time">${remedio.horario}</span>
+              <span class="text-sky-600 font-semibold text-lg min-w-20 text-right">${remedio.horario}</span>
             </div>
           `,
           time: remedio.horario,
@@ -89,10 +89,11 @@ function loadNextCares(idosos) {
       .join("");
   } else {
     container.innerHTML =
-      '<p style="color: #999; text-align: center;">Nenhum cuidado cadastrado</p>';
+      '<p class="text-gray-400 text-center py-5">Nenhum cuidado cadastrado</p>';
   }
 }
 
 updateDateTime();
 setInterval(updateDateTime, 1000);
 loadStatistics();
+

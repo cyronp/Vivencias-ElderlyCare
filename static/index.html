@@ -4,48 +4,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/login.css" />
     <title>ElderlyCare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      input:focus {
+        outline: none !important;
+      }
+    </style>
   </head>
-  <body>
-    <div class="login-wrapper">
-      <img src="../static/assets/veiocacudo 1.svg" alt="icone" />
-      <h1>Elderly Care</h1>
-      <div class="container">
-        <form action="">
-          <h2>Faça Login</h2>
+  <body
+    class="min-h-screen bg-gradient-to-b from-sky-700 to-sky-800 flex items-center justify-center p-4"
+  >
+    <div class="flex flex-col items-center gap-6 w-full max-w-md">
+      <img
+        src="../static/assets/veiocacudo 1.svg"
+        alt="icone"
+        class="w-32 h-32 md:w-44 md:h-44"
+      />
+      <h1 class="text-4xl md:text-6xl font-bold text-white text-center">
+        Elderly Care
+      </h1>
 
-          <div class="input-wrapper">
+      <div class="w-full bg-gray-800 rounded-3xl p-8 md:p-10">
+        <form class="flex flex-col items-center gap-8">
+          <h2 class="text-3xl md:text-4xl font-normal text-white text-center">
+            Faça Login
+          </h2>
+
+          <div class="relative w-full">
             <img
-              class="input-icon lock-icon"
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 brightness-0"
               src="../static/assets/user.svg"
               alt="user icon"
             />
-            <input type="text" class="text" placeholder="Usuário" />
+            <input
+              type="text"
+              class="w-full h-16 rounded-full bg-gray-300 border-none pl-16 pr-6 text-lg text-gray-800 placeholder-gray-800"
+              placeholder="Usuário"
+            />
           </div>
 
-          <div class="input-wrapper">
+          <div class="relative w-full">
             <img
-              class="input-icon"
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 brightness-0"
               src="../static/assets/lock-closed.svg"
               alt="lock icon"
             />
             <input
               type="password"
               id="password"
-              class="text"
+              class="w-full h-16 rounded-full bg-gray-300 border-none pl-16 pr-6 text-lg text-gray-800 placeholder-gray-800"
               placeholder="Senha"
             />
           </div>
 
-          <div class="checkbox">
-            <input type="checkbox" id="remember" />
-            <span>Lembrar de mim</span>
+          <div class="flex items-center gap-2.5 self-start">
+            <input
+              type="checkbox"
+              id="remember"
+              class="w-7 h-7 rounded-lg bg-gray-300 cursor-pointer appearance-none checked:bg-blue-500 relative checked:after:content-['✔'] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:text-white checked:after:text-xl"
+            />
+            <label for="remember" class="text-white font-medium cursor-pointer"
+              >Lembrar de mim</label
+            >
           </div>
-          <button type="submit">Login</button>
+
+          <button
+            type="submit"
+            class="w-full max-w-xs h-16 bg-sky-600 hover:bg-sky-700 text-white text-3xl font-medium rounded-2xl cursor-pointer transition-colors mt-4"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>
     <script src="../static/js/login.js"></script>
   </body>
 </html>
+
