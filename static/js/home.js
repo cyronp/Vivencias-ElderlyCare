@@ -65,7 +65,7 @@ function loadNextCares(idosos) {
       idoso.remedios.forEach((remedio) => {
         proximosCuidadosHtml.push({
           html: `
-            <div class="p-4 border-l-4 border-sky-600 mb-2.5 bg-gray-50 rounded-lg flex justify-between items-center hover:bg-gray-100 transition-all hover:translate-x-1">
+          <div class="py-4 border-l-4 border-sky-600 mb-2 bg-gray-50 rounded-lg flex justify-between items-center hover:bg-gray-100 transition-all hover:translate-x-1">
               <div class="flex flex-col gap-1">
                 <strong class="text-gray-800 text-lg">${idoso.nome}</strong>
                 <span class="text-gray-600 text-sm">${remedio.nome} - ${remedio.dosagem}</span>
@@ -96,4 +96,3 @@ function loadNextCares(idosos) {
 updateDateTime();
 setInterval(updateDateTime, 1000);
 loadStatistics();
-

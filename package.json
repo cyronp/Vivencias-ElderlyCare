@@ -1,0 +1,24 @@
+{
+  "name": "vivencias-elderlycare",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss static/styles.css -o static/dist/styles.css",
+    "watch": "postcss static/styles.css -o static/dist/styles.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.16",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.2.1"
+  }
+}

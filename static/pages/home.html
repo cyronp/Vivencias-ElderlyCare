@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ElderlyCare - Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link href="/static/dist/styles.css" rel="stylesheet" /> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
       body {
@@ -18,9 +19,9 @@
       }
     </style>
   </head>
-  <body class="flex h-screen bg-gray-100">
+  <body class="@container flex h-screen bg-gray-100">
     <aside
-      class="w-72 m-2.5 bg-gradient-to-b from-sky-700 to-sky-800 text-white p-5 rounded-2xl flex flex-col"
+      class="w-72 m-2.5 bg-linear-to-b from-sky-700 to-sky-800 text-white p-5 rounded-2xl flex flex-col @max-md:hidden"
     >
       <div class="flex items-center mb-8">
         <div class="">
@@ -98,8 +99,15 @@
 
     <main class="flex-1 bg-white m-2.5 rounded-xl flex flex-col">
       <header
-        class="bg-gradient-to-r from-sky-700 to-sky-800 flex justify-end items-center p-5 rounded-2xl"
+        class="bg-gradient-to-r from-sky-700 to-sky-800 flex justify-between items-center p-3 rounded-2xl"
       >
+        <div class="flex items-center">
+          <img
+            src="../assets/elderly_icon.png"
+            alt="Logo"
+            class="w-24 h-24 md:hidden mr-2"
+          />
+        </div>
         <div class="flex items-center gap-4">
           <div class="relative w-10 h-10 cursor-pointer">
             <img
@@ -115,31 +123,27 @@
         </div>
       </header>
 
-      <div class="flex-1 p-6 md:p-12 overflow-y-auto">
+      <div class="flex-1 p-6 md:p-12 pb-28 md:pb-12 overflow-y-auto">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
           Bem-vindo ao ElderlyCare 🏥
         </h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-          <div
-            class="bg-gradient-to-br from-sky-500 to-sky-600 text-white p-8 rounded-2xl shadow-lg"
-          >
+          <div class="bg-sky-600 text-white p-8 rounded-2xl shadow-lg">
             <div class="text-4xl mb-3 opacity-90">👥</div>
             <h3 class="text-base opacity-90 mb-2">Total de Idosos</h3>
             <p class="text-5xl font-bold" id="total-idosos">0</p>
           </div>
 
           <div
-            class="bg-gradient-to-br from-green-400 to-green-500 text-white p-8 rounded-2xl shadow-lg"
+            class="bg-gradient-to-br bg-sky-700 text-white p-8 rounded-2xl shadow-lg"
           >
             <div class="text-4xl mb-3 opacity-90">💊</div>
             <h3 class="text-base opacity-90 mb-2">Cuidados Hoje</h3>
             <p class="text-5xl font-bold" id="total-cuidados">0</p>
           </div>
 
-          <div
-            class="bg-gradient-to-br from-yellow-400 to-yellow-500 text-white p-8 rounded-2xl shadow-lg"
-          >
+          <div class="bg-sky-800 text-white p-8 rounded-2xl shadow-lg">
             <div class="text-4xl mb-3 opacity-90">📅</div>
             <h3 class="text-base opacity-90 mb-2">Visitas Agendadas</h3>
             <p class="text-5xl font-bold" id="total-visitas">0</p>
@@ -164,7 +168,7 @@
           </a>
           <a href="/static/pages/elderly_elders.html" class="no-underline">
             <button
-              class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-medium flex items-center justify-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
+              class="w-full sm:w-auto bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-xl text-lg font-medium flex items-center justify-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
             >
               <img
                 src="../assets/users.svg"
@@ -182,12 +186,73 @@
           </h2>
           <div
             id="proximos-cuidados"
-            class="bg-white p-5 rounded-2xl shadow-sm"
+            class="bg-white rounded-2xl shadow-sm"
           >
             <p class="text-gray-400 text-center">Carregando...</p>
           </div>
         </div>
       </div>
+      <aside
+        class="fixed bottom-3 inset-x-4 z-50 md:hidden bg-gradient-to-t from-sky-800 to-sky-700 text-white p-3 flex justify-around items-center rounded-4xl max-w-lg mx-auto shadow-lg"
+        aria-label="Mobile navigation"
+      >
+        <nav class="flex gap-2">
+          <a
+            href="/static/pages/home.html"
+            class="flex items-center p-2 rounded-3xl bg-white text-gray-800 no-underline text-lg"
+          >
+            <img
+              src="../assets/home.svg"
+              alt="Home"
+              class="w-10 h-10 brightness-0"
+            />
+            <span class="p-1">Home</span>
+          </a>
+          <a
+            href="/static/pages/elderly_elders.html"
+            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
+          >
+            <img
+              src="../assets/users.svg"
+              alt="Idosos"
+              class="w-10 h-10 brightness-0 invert"
+            />
+            <span></span>
+          </a>
+          <a
+            href="/static/pages/elderly_form.html"
+            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
+          >
+            <img
+              src="../assets/plus-circle.svg"
+              alt="Adicionar"
+              class="w-10 h-10 brightness-0 invert"
+            />
+            <span></span>
+          </a>
+          <div
+            class="flex items-center p-2 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
+          >
+            <img
+              src="../assets/document.svg"
+              alt="Cuidados"
+              class="w-10 h-10 brightness-0 invert"
+            />
+            <span></span>
+          </div>
+        </nav>
+
+        <div
+          class="mt-auto flex items-center p-2 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
+        >
+          <img
+            src="../assets/cog-8-tooth.svg"
+            alt="Configurações"
+            class="w-10 h-10 brightness-0 invert"
+          />
+          <span></span>
+        </div>
+      </aside>
     </main>
     <script src="../js/home.js"></script>
   </body>
