@@ -33,8 +33,8 @@ O objetivo do projeto é **modernizar a administração** dessas instituições,
 
 ## 👥 Feito Por
 
-| Nome | Contato |
-|:--|:--|
+| Nome |
+|:--|
 | **Samuel de Souza**
 | **Vitor Henrique**
 | **Caio de Souza**
