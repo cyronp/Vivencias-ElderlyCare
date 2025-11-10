@@ -30,6 +30,11 @@ function updateDateTime() {
   document.getElementById("current-date").textContent = dateStr;
 }
 
+function formatTime(timeString) {
+  if (!timeString) return "";
+  return timeString.substring(0, 5);
+}
+
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
@@ -70,7 +75,7 @@ function createElderBox(idoso) {
     caresHTML +=
       '<h3 class="text-red-600 font-semibold text-lg mb-2">Alta</h3>';
     remediosPorPrioridade.alta.forEach((remedio) => {
-      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-red-600 font-medium">${remedio.horario}</span></p>`;
+      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-red-600 font-medium">${formatTime(remedio.horario)}</span></p>`;
     });
   }
 
@@ -78,7 +83,7 @@ function createElderBox(idoso) {
     caresHTML +=
       '<h3 class="text-orange-500 font-semibold text-lg mb-2 mt-3">Média</h3>';
     remediosPorPrioridade.media.forEach((remedio) => {
-      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-orange-500 font-medium">${remedio.horario}</span></p>`;
+      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-orange-500 font-medium">${formatTime(remedio.horario)}</span></p>`;
     });
   }
 
@@ -86,7 +91,7 @@ function createElderBox(idoso) {
     caresHTML +=
       '<h3 class="text-green-600 font-semibold text-lg mb-2 mt-3">Baixa</h3>';
     remediosPorPrioridade.baixa.forEach((remedio) => {
-      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-green-600 font-medium">${remedio.horario}</span></p>`;
+      caresHTML += `<p class="text-gray-700 mb-1">${remedio.nome} → <span class="text-green-600 font-medium">${formatTime(remedio.horario)}</span></p>`;
     });
   }
 
@@ -198,7 +203,7 @@ function populateEditModal(idoso) {
     item.innerHTML = `
       <div class="flex-1">
         <strong class="text-gray-800">${remedio.nome}</strong><br>
-        <span class="text-sm text-gray-600">Prioridade: ${remedio.dosagem || "Não definida"} | Horário: ${remedio.horario}</span>
+        <span class="text-sm text-gray-600">Prioridade: ${remedio.dosagem || "Não definida"} | Horário: ${formatTime(remedio.horario)}</span>
       </div>
       <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeRemedio(${index})">Remover</button>
     `;
@@ -440,10 +445,110 @@ function deleteCurrentElderly() {
     });
 }
 
-function performCare(idosoId) {
-  alert(
-    `Funcionalidade de realizar cuidado para o idoso ${idosoId} será implementada em breve.`
-  );
+let currentCareIdoso = null;
+
+async function performCare(idosoId) {
+  currentCareIdoso = idosoId;
+
+  try {
+    const idosoResponse = await fetch(`/idosos/${idosoId}`);
+    if (!idosoResponse.ok) throw new Error("Erro ao buscar idoso");
+    const idoso = await idosoResponse.json();
+
+    const hoje = new Date().toISOString().split("T")[0];
+    const prontResponse = await fetch("/prontuarios/hoje");
+    if (!prontResponse.ok) throw new Error("Erro ao buscar prontuários");
+    const prontuarios = await prontResponse.json();
+
+    const cuidadosPendentes = prontuarios.filter(
+      (p) => p.idoso_id === idosoId && p.status === "pendente"
+    );
+
+    document.getElementById("care-idoso-nome").textContent = idoso.nome;
+
+    const careList = document.getElementById("care-list");
+    const emptyState = document.getElementById("care-empty-state");
+
+    if (cuidadosPendentes.length === 0) {
+      careList.innerHTML = "";
+      emptyState.classList.remove("hidden");
+    } else {
+      emptyState.classList.add("hidden");
+      careList.innerHTML = cuidadosPendentes
+        .map(
+          (cuidado) => `
+        <div class="bg-white border-2 border-gray-200 rounded-lg p-4 hover:border-sky-300 transition-colors">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <h4 class="font-semibold text-gray-800 text-lg">${cuidado.remedio_nome}</h4>
+              <p class="text-sm text-gray-600 mt-1">
+                <span class="font-medium">Horário Previsto:</span> ${formatTime(cuidado.horario_previsto)}
+              </p>
+              ${cuidado.remedio_dosagem ? `<p class="text-sm text-gray-500 mt-1">Dosagem: ${cuidado.remedio_dosagem}</p>` : ""}
+            </div>
+            <button
+              onclick="markCareAsDone(${cuidado.id}, '${cuidado.remedio_nome}')"
+              class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center gap-2 ml-4"
+            >
+              ✓ Concluir
+            </button>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+    }
+
+    document.getElementById("care-modal").classList.remove("hidden");
+    document.getElementById("care-modal").classList.add("flex");
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("Erro ao carregar cuidados do idoso");
+  }
+}
+
+function closeCareModal() {
+  document.getElementById("care-modal").classList.add("hidden");
+  document.getElementById("care-modal").classList.remove("flex");
+  currentCareIdoso = null;
+}
+
+async function markCareAsDone(prontuarioId, remedioNome) {
+  if (!confirm(`Marcar "${remedioNome}" como concluído?`)) {
+    return;
+  }
+
+  try {
+    const now = new Date();
+    const horarioRealizado = now.toISOString();
+
+    const response = await fetch(`/prontuarios/${prontuarioId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: "concluido",
+        horario_realizado: horarioRealizado,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("Erro do servidor:", errorData);
+      throw new Error("Erro ao atualizar prontuário");
+    }
+
+    const horarioExibir = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+    alert(`"${remedioNome}" marcado como concluído às ${horarioExibir}!`);
+
+    if (currentCareIdoso) {
+      await performCare(currentCareIdoso);
+    }
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("Erro ao marcar cuidado como concluído: " + error.message);
+  }
 }
 
 loadElderly();

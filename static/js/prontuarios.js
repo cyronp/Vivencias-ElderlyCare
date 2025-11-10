@@ -1,6 +1,13 @@
 let filtroAtual = "todos";
 let prontuariosData = [];
 
+// Função helper para formatar horário (HH:MM)
+function formatTime(timeString) {
+  if (!timeString) return "";
+  // Se vier como "HH:MM:SS", pega apenas "HH:MM"
+  return timeString.substring(0, 5);
+}
+
 // Atualizar data e hora
 function updateDateTime() {
   const now = new Date();
@@ -143,13 +150,13 @@ function renderizarProntuarios() {
 
           <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
             <div class="flex items-center gap-2">
-              <span>Previsto: <strong>${pront.horario_previsto}</strong></span>
+              <span>Previsto: <strong>${formatTime(pront.horario_previsto)}</strong></span>
             </div>
             ${
               pront.horario_realizado
                 ? `
               <div class="flex items-center gap-2">
-                <span>Realizado: <strong>${formatarDataHora(pront.horario_realizado)}</strong></span>
+                <span>Realizado: <strong>${formatTime(formatarDataHora(pront.horario_realizado))}</strong></span>
               </div>
             `
                 : ""
@@ -303,7 +310,6 @@ async function marcarPulado(id) {
     alert("Erro ao atualizar prontuário");
   }
 }
-
 
 async function marcarPendente(id) {
   try {

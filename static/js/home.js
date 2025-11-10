@@ -27,6 +27,11 @@ function updateDateTime() {
   document.getElementById("current-date").textContent = dateStr;
 }
 
+function formatTimeHHMM(timeString) {
+  if (!timeString) return "";
+  return timeString.substring(0, 5);
+}
+
 function loadStatistics() {
   fetch("/idosos/")
     .then((response) => response.json())
@@ -70,7 +75,7 @@ function loadNextCares(idosos) {
                 <strong class="text-gray-800 text-lg">${idoso.nome}</strong>
                 <span class="text-gray-600 text-sm">${remedio.nome} - ${remedio.dosagem}</span>
               </div>
-              <span class="text-sky-600 font-semibold text-lg min-w-20 text-right pr-2">${remedio.horario}</span>
+              <span class="text-sky-600 font-semibold text-lg min-w-20 text-right pr-2">${formatTimeHHMM(remedio.horario)}</span>
             </div>
           `,
           time: remedio.horario,

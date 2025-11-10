@@ -7,6 +7,12 @@ class NotificationSystem {
     this.init();
   }
 
+  // Função helper para formatar horário (HH:MM)
+  formatTime(timeString) {
+    if (!timeString) return "";
+    return timeString.substring(0, 5);
+  }
+
   init() {
     this.requestPermission();
     this.startChecking();
@@ -73,7 +79,7 @@ class NotificationSystem {
 
   sendNotification(prontuario) {
     const title = "⏰ Horário de Cuidado";
-    const body = `${prontuario.idoso_nome}: ${prontuario.remedio_nome} às ${prontuario.horario_previsto}`;
+    const body = `${prontuario.idoso_nome}: ${prontuario.remedio_nome} às ${this.formatTime(prontuario.horario_previsto)}`;
 
     if ("Notification" in window && Notification.permission === "granted") {
       const notification = new Notification(title, {
@@ -95,8 +101,8 @@ class NotificationSystem {
   }
 
   sendLateNotification(prontuario) {
-    const title = "Cuidado Atrasado";
-    const body = `${prontuario.idoso_nome}: ${prontuario.remedio_nome} - Horário: ${prontuario.horario_previsto}`;
+    const title = "⚠️ Cuidado Atrasado";
+    const body = `${prontuario.idoso_nome}: ${prontuario.remedio_nome} - Horário: ${this.formatTime(prontuario.horario_previsto)}`;
 
     if ("Notification" in window && Notification.permission === "granted") {
       const notification = new Notification(title, {
