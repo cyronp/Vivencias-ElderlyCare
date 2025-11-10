@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from server.routers import idosos, remedios, filhos, visitas, auth
+from server.routers import idosos, remedios, filhos, visitas, auth, prontuarios
 from server.data.database import Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -24,6 +24,7 @@ app.include_router(idosos.router)
 app.include_router(remedios.router)
 app.include_router(filhos.router)
 app.include_router(visitas.router)
+app.include_router(prontuarios.router)
 
 @app.get("/")
 async def root():

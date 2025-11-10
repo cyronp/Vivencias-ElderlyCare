@@ -384,14 +384,36 @@ function saveEdit() {
     idade: parseInt(document.getElementById("edit-idade").value) || null,
     data_nascimento:
       document.getElementById("edit-data-nascimento").value || null,
-    remedios: currentEditingIdoso.remedios || [],
-    filhos: currentEditingIdoso.filhos || [],
-    visitas: currentEditingIdoso.visitas || [],
   };
 
-  console.log("Dados a serem salvos:", updatedData);
-  alert("Funcionalidade de edição será implementada em breve no backend!");
-  closeEditModal();
+  // Validação básica
+  if (!updatedData.nome || updatedData.nome.trim() === "") {
+    alert("O nome é obrigatório!");
+    return;
+  }
+
+  fetch(`/idosos/${currentEditingIdoso.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar idoso");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert("Idoso atualizado com sucesso!");
+      closeEditModal();
+      loadElderly();
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+      alert("Erro ao atualizar idoso");
+    });
 }
 
 function deleteCurrentElderly() {
@@ -425,4 +447,3 @@ function performCare(idosoId) {
 }
 
 loadElderly();
-

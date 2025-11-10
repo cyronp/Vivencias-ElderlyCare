@@ -6,8 +6,6 @@
     <title>ElderlyCare - Home</title>
     <!-- <link href="/static/dist/styles.css" rel="stylesheet" /> -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../home.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
       body {
@@ -75,16 +73,17 @@
           />
           <span>Adicionar Idoso</span>
         </a>
-        <div
-          class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
+        <a
+          href="/static/pages/prontuarios.html"
+          class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
         >
           <img
             src="../assets/document.svg"
-            alt="Cuidados"
+            alt="Prontuários"
             class="w-10 h-10 brightness-0 invert"
           />
-          <span>Cuidados</span>
-        </div>
+          <span>Prontuários</span>
+        </a>
       </nav>
 
       <div
@@ -101,7 +100,7 @@
 
     <main class="flex-1 bg-white m-2.5 rounded-xl flex flex-col">
       <header
-        class="bg-gradient-to-r from-sky-700 to-sky-800 flex justify-between items-center p-3 rounded-2xl"
+        class="bg-linear-to-r from-sky-700 to-sky-800 flex justify-between items-center p-3 rounded-2xl"
       >
         <div class="flex items-center">
           <img
@@ -127,26 +126,23 @@
 
       <div class="flex-1 p-6 md:p-12 pb-28 md:pb-12 overflow-y-auto">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-          Bem-vindo ao ElderlyCare 🏥
+          Bem-vindo ao ElderlyCare
         </h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           <div class="bg-sky-600 text-white p-8 rounded-2xl shadow-lg">
-            <div class="text-4xl mb-3 opacity-90">👥</div>
             <h3 class="text-base opacity-90 mb-2">Total de Idosos</h3>
             <p class="text-5xl font-bold" id="total-idosos">0</p>
           </div>
 
           <div
-            class="bg-gradient-to-br bg-sky-700 text-white p-8 rounded-2xl shadow-lg"
+            class="bg-linear-to-br bg-sky-700 text-white p-8 rounded-2xl shadow-lg"
           >
-            <div class="text-4xl mb-3 opacity-90">💊</div>
             <h3 class="text-base opacity-90 mb-2">Cuidados Hoje</h3>
             <p class="text-5xl font-bold" id="total-cuidados">0</p>
           </div>
 
           <div class="bg-sky-800 text-white p-8 rounded-2xl shadow-lg">
-            <div class="text-4xl mb-3 opacity-90">📅</div>
             <h3 class="text-base opacity-90 mb-2">Visitas Agendadas</h3>
             <p class="text-5xl font-bold" id="total-visitas">0</p>
           </div>
@@ -186,16 +182,13 @@
           <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-5">
             Próximos Cuidados do Dia
           </h2>
-          <div
-            id="proximos-cuidados"
-            class="bg-white rounded-2xl shadow-sm"
-          >
+          <div id="proximos-cuidados" class="bg-white rounded-2xl shadow-sm">
             <p class="text-gray-400 text-center">Carregando...</p>
           </div>
         </div>
       </div>
       <aside
-        class="fixed bottom-3 inset-x-4 z-50 md:hidden bg-gradient-to-t from-sky-800 to-sky-700 text-white p-3 flex justify-around items-center rounded-4xl max-w-lg mx-auto shadow-lg"
+        class="fixed bottom-3 inset-x-4 z-50 md:hidden bg-linear-to-t from-sky-800 to-sky-700 text-white p-3 flex justify-around items-center rounded-4xl max-w-lg mx-auto shadow-lg"
         aria-label="Mobile navigation"
       >
         <nav class="flex gap-2">
@@ -232,16 +225,17 @@
             />
             <span></span>
           </a>
-          <div
-            class="flex items-center p-2 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
+          <a
+            href="/static/pages/prontuarios.html"
+            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
           >
             <img
               src="../assets/document.svg"
-              alt="Cuidados"
+              alt="Prontuários"
               class="w-10 h-10 brightness-0 invert"
             />
             <span></span>
-          </div>
+          </a>
         </nav>
 
         <div

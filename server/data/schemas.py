@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date, time
+from datetime import date, time, datetime
 from typing import List, Optional
 
 
@@ -70,11 +70,48 @@ class IdosoCreate(IdosoBase):
     filhos: List[FilhoCreate] = []
 
 
+class IdosoUpdate(BaseModel):
+    nome: Optional[str] = None
+    idade: Optional[int] = None
+    data_nascimento: Optional[date] = None
+
+
 class Idoso(IdosoBase):
     id: int
     remedios: List[Remedio] = []
     filhos: List[Filho] = []
     visitas: List[Visita] = []
+
+    class Config:
+        from_attributes = True
+
+
+# ---------- Prontuário ----------
+class ProntuarioBase(BaseModel):
+    idoso_id: int
+    remedio_id: int
+    data: date
+    horario_previsto: time
+    status: str = "pendente" 
+    observacoes: Optional[str] = None
+
+
+class ProntuarioCreate(BaseModel):
+    idoso_id: int
+    remedio_id: int
+    data: date
+    horario_previsto: time
+
+
+class ProntuarioUpdate(BaseModel):
+    status: str
+    horario_realizado: Optional[datetime] = None
+    observacoes: Optional[str] = None
+
+
+class Prontuario(ProntuarioBase):
+    id: int
+    horario_realizado: Optional[datetime] = None
 
     class Config:
         from_attributes = True

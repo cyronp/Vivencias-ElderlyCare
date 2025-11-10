@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Time, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Time, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -13,6 +13,7 @@ class Idoso(Base):
     remedios = relationship("Remedio", back_populates="idoso", cascade="all, delete")
     filhos = relationship("Filho", back_populates="idoso", cascade="all, delete")
     visitas = relationship("Visita", back_populates="idoso", cascade="all, delete")
+    prontuarios = relationship("Prontuario", back_populates="idoso", cascade="all, delete")
 
 
 class Remedio(Base):
@@ -47,3 +48,19 @@ class Visita(Base):
 
     idoso_id = Column(Integer, ForeignKey("idosos.id"))
     idoso = relationship("Idoso", back_populates="visitas")
+
+
+class Prontuario(Base):
+    __tablename__ = "prontuarios"
+
+    id = Column(Integer, primary_key=True, index=True)
+    idoso_id = Column(Integer, ForeignKey("idosos.id"), nullable=False)
+    remedio_id = Column(Integer, ForeignKey("remedios.id"), nullable=False)
+    data = Column(Date, nullable=False)
+    horario_previsto = Column(Time, nullable=False)
+    horario_realizado = Column(DateTime)
+    status = Column(String, default="pendente")
+    observacoes = Column(String)
+
+    idoso = relationship("Idoso", back_populates="prontuarios")
+    remedio = relationship("Remedio")
