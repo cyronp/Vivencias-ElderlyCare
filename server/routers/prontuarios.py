@@ -41,8 +41,8 @@ def listar_prontuarios_hoje(db: Session = Depends(get_db)):
             "remedio_nome": remedio.nome if remedio else "",
             "remedio_dosagem": remedio.dosagem if remedio else "",
             "data": pront.data,
-            "horario_previsto": pront.horario_previsto,
-            "horario_realizado": pront.horario_realizado,
+            "horario_previsto": str(pront.horario_previsto) if pront.horario_previsto else "00:00:00",
+            "horario_realizado": str(pront.horario_realizado) if pront.horario_realizado else None,
             "status": pront.status,
             "observacoes": pront.observacoes
         })
@@ -54,30 +54,51 @@ def listar_prontuarios_hoje(db: Session = Depends(get_db)):
 def gerar_prontuarios_do_dia(db: Session = Depends(get_db)):
     hoje = date.today()
     
-    existentes = db.query(models.Prontuario).filter(
+    # Busca todos os prontuários já existentes para hoje
+    prontuarios_existentes = db.query(models.Prontuario).filter(
         models.Prontuario.data == hoje
-    ).count()
+    ).all()
     
-    if existentes > 0:
-        return {"message": "Prontuários de hoje já foram gerados", "quantidade": existentes}
+    # Cria um set com as combinações (idoso_id, remedio_id) já existentes
+    combinacoes_existentes = {
+        (p.idoso_id, p.remedio_id) for p in prontuarios_existentes
+    }
     
     idosos = db.query(models.Idoso).all()
     contador = 0
     
     for idoso in idosos:
         for remedio in idoso.remedios:
-            prontuario = models.Prontuario(
-                idoso_id=idoso.id,
-                remedio_id=remedio.id,
-                data=hoje,
-                horario_previsto=remedio.horario,
-                status="pendente"
-            )
-            db.add(prontuario)
-            contador += 1
+            # Só cria o prontuário se não existir ainda
+            if (idoso.id, remedio.id) not in combinacoes_existentes:
+                prontuario = models.Prontuario(
+                    idoso_id=idoso.id,
+                    remedio_id=remedio.id,
+                    data=hoje,
+                    horario_previsto=remedio.horario,
+                    status="pendente"
+                )
+                db.add(prontuario)
+                contador += 1
     
     db.commit()
-    return {"message": "Prontuários gerados com sucesso", "quantidade": contador}
+    
+    total_existentes = len(combinacoes_existentes)
+    if contador > 0:
+        return {
+            "message": f"Prontuários gerados com sucesso! {contador} novos criados, {total_existentes} já existiam.",
+            "novos": contador,
+            "existentes": total_existentes,
+            "total": contador + total_existentes
+        }
+    else:
+        return {
+            "message": f"Todos os prontuários já foram gerados. Total: {total_existentes}",
+            "novos": 0,
+            "existentes": total_existentes,
+            "total": total_existentes
+        }
+
 
 
 @router.post("/", response_model=schemas.Prontuario)

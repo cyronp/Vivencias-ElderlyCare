@@ -31,7 +31,6 @@ function updateDateTime() {
   document.getElementById("current-date").textContent = dateStr;
 }
 
-// Gerar prontuários do dia
 async function gerarProntuarios() {
   try {
     const response = await fetch("/prontuarios/gerar-do-dia", {
@@ -46,7 +45,6 @@ async function gerarProntuarios() {
   }
 }
 
-// Carregar prontuários
 async function carregarProntuarios() {
   try {
     const response = await fetch("/prontuarios/hoje");
@@ -60,7 +58,6 @@ async function carregarProntuarios() {
   }
 }
 
-// Atualizar estatísticas
 function atualizarEstatisticas() {
   const total = prontuariosData.length;
   const pendentes = prontuariosData.filter(
@@ -75,11 +72,9 @@ function atualizarEstatisticas() {
   document.getElementById("stat-concluidos").textContent = concluidos;
 }
 
-// Filtrar prontuários
 function filtrarProntuarios(filtro) {
   filtroAtual = filtro;
 
-  // Atualizar botões
   document.getElementById("btn-todos").className =
     "px-6 py-2 rounded-lg font-medium transition-colors " +
     (filtro === "todos"
@@ -107,7 +102,6 @@ function filtrarProntuarios(filtro) {
   renderizarProntuarios();
 }
 
-// Renderizar prontuários
 function renderizarProntuarios() {
   const container = document.getElementById("prontuarios-container");
 
@@ -118,7 +112,6 @@ function renderizarProntuarios() {
     );
   }
 
-  // Ordenar por horário previsto
   prontuariosFiltrados.sort((a, b) => {
     return a.horario_previsto.localeCompare(b.horario_previsto);
   });
@@ -219,7 +212,6 @@ function renderizarProntuarios() {
     .join("");
 }
 
-// Helpers de status
 function getCorStatus(status) {
   switch (status) {
     case "pendente":
@@ -266,7 +258,6 @@ function formatarDataHora(datetime) {
   return `${hours}:${minutes}`;
 }
 
-// Marcar como concluído
 async function marcarConcluido(id) {
   try {
     const response = await fetch(`/prontuarios/${id}`, {
@@ -290,7 +281,6 @@ async function marcarConcluido(id) {
   }
 }
 
-// Marcar como pulado
 async function marcarPulado(id) {
   try {
     const response = await fetch(`/prontuarios/${id}`, {
@@ -314,7 +304,7 @@ async function marcarPulado(id) {
   }
 }
 
-// Marcar como pendente
+
 async function marcarPendente(id) {
   try {
     const response = await fetch(`/prontuarios/${id}`, {
@@ -339,14 +329,12 @@ async function marcarPendente(id) {
   }
 }
 
-// Adicionar observação
 async function adicionarObservacao(id, observacaoAtual) {
   const observacao = prompt("Adicionar/Editar observação:", observacaoAtual);
 
-  if (observacao === null) return; // Cancelou
+  if (observacao === null) return;
 
   try {
-    // Buscar o prontuário atual para manter o status
     const pront = prontuariosData.find((p) => p.id === id);
 
     const response = await fetch(`/prontuarios/${id}`, {
@@ -371,7 +359,6 @@ async function adicionarObservacao(id, observacaoAtual) {
   }
 }
 
-// Inicializar
 updateDateTime();
 setInterval(updateDateTime, 1000);
 carregarProntuarios();

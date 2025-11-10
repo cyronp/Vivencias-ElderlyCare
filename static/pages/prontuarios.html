@@ -101,12 +101,16 @@
           </div>
         </div>
         <div class="flex items-center gap-4">
-          <div class="relative w-10 h-10 cursor-pointer">
+          <div class="relative w-10 h-10 cursor-pointer notification-icon">
             <img
               src="../assets/bell.svg"
               alt="Notificações"
               class="w-full h-full brightness-0 invert"
             />
+            <span
+              class="notification-badge absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center hidden"
+              >0</span
+            >
           </div>
           <div class="flex items-center gap-2.5">
             <div class="w-14 h-14 bg-white rounded-full">
@@ -253,6 +257,7 @@
       </div>
     </aside>
 
+    <script src="../js/notifications.js"></script>
     <script src="../js/prontuarios.js"></script>
   </body>
 </html>
