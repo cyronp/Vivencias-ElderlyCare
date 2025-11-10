@@ -35,9 +35,9 @@ O objetivo do projeto é **modernizar a administração** dessas instituições,
 
 | Nome | Contato |
 |:--|:--|
-| **Samuel de Souza** | (47) 9 996607262 |
-| **Vitor Henrique** | (47) 9 91380542 |
-| **Caio de Souza** | (47) 9 92609442 |
-| **Carlos Deretti** | (47) 9 99557255 |
+| **Samuel de Souza**
+| **Vitor Henrique**
+| **Caio de Souza**
+| **Carlos Deretti**
 
 ---
