@@ -1,21 +1,14 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ElderlyCare - Home</title>
-    <!-- <link href="/static/dist/styles.css" rel="stylesheet" /> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Usuários - Vivencias ElderlyCare</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
       body {
-        font-family:
-          "Inter",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
+        font-family: "Inter", sans-serif;
       }
     </style>
   </head>
@@ -36,12 +29,12 @@
       <nav class="flex flex-col gap-2.5 flex-1">
         <a
           href="/static/pages/home.html"
-          class="flex items-center gap-2.5 p-2.5 rounded-3xl bg-white text-gray-800 no-underline text-lg"
+          class="flex items-center gap-2.5 p-2.5 rounded-3xl hover:bg-white/10 text-white no-underline text-lg transition-colors"
         >
           <img
             src="../assets/home.svg"
             alt="Home"
-            class="w-10 h-10 brightness-0"
+            class="w-10 h-10 brightness-0 invert"
           />
           <span>Home</span>
         </a>
@@ -92,7 +85,7 @@
               alt="Logo"
               class="w-20 h-20"
             />
-          </div>          </div>
+          </div>
         </div>
         <div class="flex items-center gap-4">
           <div class="relative w-10 h-10 cursor-pointer notification-icon">
@@ -186,141 +179,217 @@
 
       <div class="flex-1 p-6 md:p-12 pb-28 md:pb-12 overflow-y-auto">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-          Bem-vindo ao ElderlyCare
+          Gerenciar Usuários
         </h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-          <div class="bg-sky-600 text-white p-8 rounded-2xl shadow-lg">
-            <h3 class="text-base opacity-90 mb-2">Total de Idosos</h3>
-            <p class="text-5xl font-bold" id="total-idosos">0</p>
-          </div>
-
-          <div
-            class="bg-linear-to-br bg-sky-700 text-white p-8 rounded-2xl shadow-lg"
-          >
-            <h3 class="text-base opacity-90 mb-2">Cuidados Hoje</h3>
-            <p class="text-5xl font-bold" id="total-cuidados">0</p>
-          </div>
-
-          <div class="bg-sky-800 text-white p-8 rounded-2xl shadow-lg">
-            <h3 class="text-base opacity-90 mb-2">Visitas Agendadas</h3>
-            <p class="text-5xl font-bold" id="total-visitas">0</p>
-          </div>
-        </div>
-
-        <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-5">
-          Ações Rápidas
-        </h2>
-        <div class="flex flex-col sm:flex-row gap-4 mb-10">
-          <a href="/static/pages/elderly_form.html" class="no-underline">
-            <button
-              class="w-full sm:w-auto bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-xl text-lg font-medium flex items-center justify-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
-            >
-              <img
-                src="../assets/plus-circle.svg"
-                alt=""
-                class="w-6 h-6 brightness-0 invert"
-              />
-              Cadastrar Novo Idoso
-            </button>
-          </a>
-          <a href="/static/pages/elderly_elders.html" class="no-underline">
-            <button
-              class="w-full sm:w-auto bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-xl text-lg font-medium flex items-center justify-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
-            >
-              <img
-                src="../assets/users.svg"
-                alt=""
-                class="w-6 h-6 brightness-0 invert"
-              />
-              Ver Todos os Idosos
-            </button>
-          </a>
-          <a href="/static/pages/prontuarios.html" class="no-underline">
-            <button
-              class="w-full sm:w-auto bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-xl text-lg font-medium flex items-center justify-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
-            >
-              <img
-                src="../assets/document.svg"
-                alt=""
-                class="w-6 h-6 brightness-0 invert"
-              />
-              Ver Prontuários do dia
-            </button>
-          </a>
-        </div>
-
-        <div class="mt-10">
-          <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-5">
-            Próximos Cuidados do Dia
+        <div class="max-w-2xl mx-auto mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
+            Criar Usuário
           </h2>
-          <div id="proximos-cuidados" class="bg-white rounded-2xl shadow-sm">
-            <p class="text-gray-400 text-center">Carregando...</p>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Username <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="user-username"
+                type="text"
+                placeholder="Digite o nome de usuário"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Nome Completo
+              </label>
+              <input
+                id="user-fullname"
+                type="text"
+                placeholder="Digite o nome completo"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Senha <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="user-password"
+                type="password"
+                placeholder="Digite a senha"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Perfil
+              </label>
+              <select
+                id="user-profile"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+              ></select>
+            </div>
+            <div class="flex justify-end mt-8">
+              <button
+                id="create-user"
+                type="button"
+                class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+              >
+                Criar Usuário
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
+            Usuários Cadastrados
+          </h2>
+          <div id="users-list" class="space-y-4"></div>
+        </div>
+      </div>
+    </main>
+    <aside
+      class="fixed bottom-3 inset-x-4 z-50 md:hidden bg-linear-to-t from-sky-800 to-sky-700 text-white p-3 flex justify-around items-center rounded-4xl max-w-lg mx-auto shadow-lg"
+      aria-label="Mobile navigation"
+    >
+      <nav class="flex gap-2">
+        <a
+          href="/static/pages/home.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/home.svg"
+            alt="Home"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+        <a
+          href="/static/pages/elderly_elders.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/users.svg"
+            alt="Idosos"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+        <a
+          href="/static/pages/elderly_form.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/plus-circle.svg"
+            alt="Adicionar"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+        <a
+          href="/static/pages/prontuarios.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/document.svg"
+            alt="Prontuários"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+      </nav>
+
+      <a
+        href="/static/pages/settings.html"
+        class="mt-auto flex items-center p-2 rounded-3xl hover:bg-white/10 no-underline transition-colors"
+      >
+        <img
+          src="../assets/cog-8-tooth.svg"
+          alt="Configurações"
+          class="w-10 h-10 brightness-0 invert"
+        />
+      </a>
+    </aside>
+
+    <div
+      id="user-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50"
+    >
+      <div
+        class="relative bg-white rounded-xl w-full max-w-2xl mx-4 p-8 shadow-lg max-h-[90vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Criar Novo Usuário</h2>
+          <button
+            type="button"
+            class="close-modal text-gray-500 hover:text-gray-800 text-3xl leading-none"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Username <span class="text-red-600">*</span>
+            </label>
+            <input
+              id="modal-user-username"
+              type="text"
+              placeholder="Digite o nome de usuário"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Nome Completo
+            </label>
+            <input
+              id="modal-user-fullname"
+              type="text"
+              placeholder="Digite o nome completo"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Senha <span class="text-red-600">*</span>
+            </label>
+            <input
+              id="modal-user-password"
+              type="password"
+              placeholder="Digite a senha"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Perfil
+            </label>
+            <select
+              id="modal-user-profile"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+            ></select>
+          </div>
+          <div class="flex justify-end gap-3 mt-8">
+            <button
+              type="button"
+              class="close-modal px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+            >
+              Cancelar
+            </button>
+            <button
+              id="modal-create-user"
+              type="button"
+              class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            >
+              Criar Usuário
+            </button>
           </div>
         </div>
       </div>
-      <aside
-        class="fixed bottom-3 inset-x-4 z-50 md:hidden bg-linear-to-t from-sky-800 to-sky-700 text-white p-3 flex justify-around items-center rounded-4xl max-w-lg mx-auto shadow-lg"
-        aria-label="Mobile navigation"
-      >
-        <nav class="flex gap-2">
-          <a
-            href="/static/pages/home.html"
-            class="flex items-center p-2 rounded-3xl bg-white text-gray-800 no-underline"
-          >
-            <img
-              src="../assets/home.svg"
-              alt="Home"
-              class="w-10 h-10 brightness-0"
-            />
-            <span class="p-1">Home</span>
-          </a>
-          <a
-            href="/static/pages/elderly_elders.html"
-            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
-          >
-            <img
-              src="../assets/users.svg"
-              alt="Idosos"
-              class="w-10 h-10 brightness-0 invert"
-            />
-            <span></span>
-          </a>
-          <a
-            href="/static/pages/elderly_form.html"
-            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
-          >
-            <img
-              src="../assets/plus-circle.svg"
-              alt="Adicionar"
-              class="w-10 h-10 brightness-0 invert"
-            />
-            <span></span>
-          </a>
-          <a
-            href="/static/pages/prontuarios.html"
-            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
-          >
-            <img
-              src="../assets/document.svg"
-              alt="Prontuários"
-              class="w-10 h-10 brightness-0 invert"
-            />
-            <span></span>
-          </a>
-          <a
-            href="/static/pages/settings.html"
-            class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
-          >
-            <img
-              src="../assets/cog-8-tooth.svg"
-              alt="Configurações"
-              class="w-10 h-10 brightness-0 invert"
-            />
-          </a>
-        </nav>
-      </aside>
-    </main>
+    </div>
 
     <!-- Navegação Mobile -->
     <aside
@@ -330,14 +399,13 @@
       <nav class="flex gap-2 w-full justify-between">
         <a
           href="/static/pages/home.html"
-          class="flex items-center p-2 pr-4 rounded-3xl bg-white text-gray-800 no-underline"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
         >
           <img
             src="../assets/home.svg"
             alt="Home"
-            class="w-10 h-10 brightness-0"
+            class="w-10 h-10 brightness-0 invert"
           />
-          <span class="p-1">Home</span>
         </a>
         <a
           href="/static/pages/elderly_elders.html"
@@ -375,7 +443,7 @@
         >
           <img
             src="../assets/cog-8-tooth.svg"
-            alt="Configurações"
+            alt="Registros"
             class="w-10 h-10 brightness-0 invert"
           />
         </a>
@@ -383,7 +451,6 @@
     </aside>
 
     <script src="../js/profile-menu.js"></script>
-    <script src="../js/notifications.js"></script>
-    <script src="../js/home.js"></script>
+    <script src="../js/users.js"></script>
   </body>
 </html>

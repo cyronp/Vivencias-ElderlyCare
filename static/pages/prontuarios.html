@@ -72,17 +72,6 @@
           <span>Prontuários</span>
         </a>
       </nav>
-
-      <div
-        class="mt-auto flex items-center gap-4 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors"
-      >
-        <img
-          src="../assets/cog-8-tooth.svg"
-          alt="Configurações"
-          class="w-10 h-10 brightness-0 invert"
-        />
-        <span>Configuração</span>
-      </div>
     </aside>
 
     <main class="flex-1 bg-white m-2.5 rounded-xl flex flex-col">
@@ -90,13 +79,11 @@
         class="bg-linear-to-r from-sky-700 to-sky-800 flex justify-between items-center p-3 rounded-2xl"
       >
         <div class="flex items-center">
-          <div
-            class="w-16 h-16 bg-white rounded-full flex items-center justify-center p-2 md:hidden"
-          >
+          <div class="flex items-center justify-center md:hidden">
             <img
               src="../assets/elderly_icon.png"
               alt="Logo"
-              class="w-full h-full object-contain"
+              class="w-20 h-20"
             />
           </div>
         </div>
@@ -112,16 +99,80 @@
               >0</span
             >
           </div>
-          <div class="flex items-center gap-2.5">
-            <div class="w-14 h-14 bg-white rounded-full">
-              <div class="justify-center items-center flex">
-                <img
-                  class="w-12 h-12 justify-center items-center m-2"
-                  src="../assets/user.svg"
-                />
+          <div class="relative">
+            <button
+              id="profile-menu-button"
+              type="button"
+              class="flex items-center gap-2"
+            >
+              <div class="w-14 h-14 bg-white rounded-full">
+                <div class="justify-center items-center flex">
+                  <img
+                    class="w-12 h-12 justify-center items-center m-2"
+                    src="../assets/user.svg"
+                  />
+                </div>
+              </div>
+              <span class="text-xl font-medium text-white">Admin</span>
+              <svg
+                class="w-6 h-6 text-white cursor-pointer"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+            <div
+              id="profile-menu"
+              class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
+            >
+              <div class="py-2">
+                <a
+                  href="/static/pages/users.html"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-gray-700 no-underline transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                    ></path>
+                  </svg>
+                  Gerenciar Usuários
+                </a>
+                <a
+                  href="/static/pages/settings.html"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-gray-700 no-underline transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    ></path>
+                  </svg>
+                  Registros
+                </a>
               </div>
             </div>
-            <span class="text-xl font-medium text-white">Admin</span>
           </div>
         </div>
       </header>
@@ -246,17 +297,19 @@
         </a>
       </nav>
 
-      <div
-        class="mt-auto flex items-center p-2 rounded-3xl hover:bg-white/10 cursor-pointer transition-colors"
+      <a
+        href="/static/pages/settings.html"
+        class="mt-auto flex items-center p-2 rounded-3xl hover:bg-white/10 no-underline transition-colors"
       >
         <img
           src="../assets/cog-8-tooth.svg"
           alt="Configurações"
           class="w-10 h-10 brightness-0 invert"
         />
-      </div>
+      </a>
     </aside>
 
+    <script src="../js/profile-menu.js"></script>
     <script src="../js/notifications.js"></script>
     <script src="../js/prontuarios.js"></script>
   </body>

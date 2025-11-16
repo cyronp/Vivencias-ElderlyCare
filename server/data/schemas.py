@@ -115,3 +115,73 @@ class Prontuario(ProntuarioBase):
 
     class Config:
         from_attributes = True
+
+
+# ---------- Settings ----------
+class SettingBase(BaseModel):
+    key: str
+    value: Optional[str] = None
+    description: Optional[str] = None
+
+
+class SettingCreate(SettingBase):
+    pass
+
+
+class Setting(SettingBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+
+# ---------- Audit Log ----------
+class AuditLogBase(BaseModel):
+    timestamp: datetime
+    user: Optional[str] = None
+    action: str
+    target_table: Optional[str] = None
+    target_id: Optional[int] = None
+    description: Optional[str] = None
+
+
+class AuditLog(AuditLogBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+
+# ---------- Profile / User ----------
+class ProfileBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+
+class ProfileCreate(ProfileBase):
+    pass
+
+
+class Profile(ProfileBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+
+class UserBase(BaseModel):
+    username: str
+    full_name: Optional[str] = None
+
+
+class UserCreate(UserBase):
+    password: str
+    profile_id: Optional[int] = None
+
+
+class User(UserBase):
+    id: int
+    profile: Optional[Profile] = None
+
+    class Config:
+        from_attributes = True

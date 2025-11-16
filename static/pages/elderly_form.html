@@ -43,18 +43,13 @@
           <span>Prontuários</span>
         </a>
       </nav>
-      
-      <div class="mt-auto flex items-center gap-4 p-2.5 rounded-3xl hover:bg-white/10 cursor-pointer text-lg transition-colors">
-        <img src="../assets/cog-8-tooth.svg" alt="Configurações" class="w-10 h-10 brightness-0 invert" />
-        <span>Configuração</span>
-      </div>
     </aside>
 
     <main class="flex-1 bg-white m-2.5 rounded-xl flex flex-col">
       <header class="bg-linear-to-r from-sky-700 to-sky-800 flex justify-between items-center p-3 rounded-2xl">
         <div class="flex items-center">
-          <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center p-2 md:hidden">
-            <img src="../assets/elderly_icon.png" alt="Logo" class="w-full h-full object-contain" />
+          <div class="flex items-center justify-center md:hidden">
+            <img src="../assets/elderly_icon.png" alt="Logo" class="w-20 h-20" />
           </div>
         </div>
         <div class="flex items-center gap-4">
@@ -62,16 +57,60 @@
             <img src="../assets/bell.svg" alt="Notificações" class="w-full h-full brightness-0 invert" />
             <span class="notification-badge absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center hidden">0</span>
           </div>
-          <div class="flex items-center gap-2.5">
-            <div class="w-14 h-14 bg-white rounded-full">
-              <div class="justify-center items-center flex">
-                <img
-                  class="w-12 h-12 justify-center items-center m-2"
-                  src="../assets/user.svg"
-                />
+          <div class="relative">
+<button
+              id="profile-menu-button"
+              type="button"
+              class="flex items-center gap-2"
+            >
+              <div class="w-14 h-14 bg-white rounded-full">
+                <div class="justify-center items-center flex">
+                  <img
+                    class="w-12 h-12 justify-center items-center m-2"
+                    src="../assets/user.svg"
+                  />
+                </div>
+              </div>
+              <span class="text-xl font-medium text-white">Admin</span>
+              <svg
+                class="w-6 h-6 text-white cursor-pointer"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+            <div
+              id="profile-menu"
+              class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
+            >
+              <div class="py-2">
+                <a
+                  href="/static/pages/users.html"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-gray-700 no-underline transition-colors"
+                >
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                  </svg>
+                  Gerenciar Usuários
+                </a>
+                <a
+                  href="/static/pages/settings.html"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-gray-700 no-underline transition-colors"
+                >
+                  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  Registros
+                </a>
               </div>
             </div>
-            <span class="text-xl font-medium text-white">Admin</span>
           </div>
         </div>
       </header>
@@ -305,11 +344,104 @@
         </a>
       </nav>
 
-      <div class="mt-auto flex items-center p-2 rounded-3xl hover:bg-white/10 cursor-pointer transition-colors">
+      <a href="/static/pages/settings.html" class="mt-auto flex items-center p-2 rounded-3xl hover:bg-white/10 no-underline transition-colors">
         <img src="../assets/cog-8-tooth.svg" alt="Configurações" class="w-10 h-10 brightness-0 invert" />
-      </div>
+      </a>
     </aside>
 
+    <!-- Profile modal -->
+    <div id="profile-modal" class="fixed inset-0 z-50 hidden items-center justify-center">
+      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="relative bg-white rounded-xl w-80 max-w-sm p-6 shadow-lg z-10">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Conta</h3>
+          <button type="button" class="close-modal text-gray-500 hover:text-gray-800 text-2xl leading-none">&times;</button>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="/static/pages/users.html" class="px-4 py-2 rounded-lg hover:bg-gray-100 no-underline text-gray-800">Gerenciar Usuários</a>
+          <a href="/static/pages/settings.html" class="px-4 py-2 rounded-lg hover:bg-gray-100 no-underline text-gray-800">Registros</a>
+          <button type="button" class="close-modal px-4 py-2 rounded-lg bg-sky-700 text-white hover:bg-sky-800">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function(){
+        const btn = document.getElementById('profile-button');
+        const modal = document.getElementById('profile-modal');
+        if(!btn || !modal) return;
+        function openModal(){ modal.classList.remove('hidden'); modal.classList.add('flex'); }
+        function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); }
+        btn.addEventListener('click', openModal);
+        modal.addEventListener('click', function(e){
+          if(e.target === modal) closeModal();
+          if(e.target.classList && e.target.classList.contains('close-modal')) closeModal();
+        });
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+      })();
+    </script>
+
+    <!-- Navegação Mobile -->
+    <aside
+      class="fixed bottom-3 inset-x-4 z-50 md:hidden bg-linear-to-t from-sky-800 to-sky-700 text-white p-3 flex justify-around items-center rounded-4xl max-w-lg mx-auto shadow-lg"
+      aria-label="Mobile navigation"
+    >
+      <nav class="flex gap-2 w-full justify-between">
+        <a
+          href="/static/pages/home.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/home.svg"
+            alt="Home"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+        <a
+          href="/static/pages/elderly_elders.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/users.svg"
+            alt="Idosos"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+        <a
+          href="/static/pages/elderly_form.html"
+          class="flex items-center p-2 pr-4 rounded-3xl bg-white text-gray-800 no-underline"
+        >
+          <img
+            src="../assets/plus-circle.svg"
+            alt="Adicionar"
+            class="w-10 h-10 brightness-0"
+          />
+          <span class="p-1">Adicionar</span>
+        </a>
+        <a
+          href="/static/pages/prontuarios.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/document.svg"
+            alt="Prontuários"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+        <a
+          href="/static/pages/settings.html"
+          class="flex items-center p-2 rounded-3xl hover:bg-white/10 text-white no-underline transition-colors"
+        >
+          <img
+            src="../assets/cog-8-tooth.svg"
+            alt="Configurações"
+            class="w-10 h-10 brightness-0 invert"
+          />
+        </a>
+      </nav>
+    </aside>
+
+    <script src="../js/profile-menu.js"></script>
     <script src="../js/notifications.js"></script>
     <script src="../js/elderly_form.js"></script>
   </body>

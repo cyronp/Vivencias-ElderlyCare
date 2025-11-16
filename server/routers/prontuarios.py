@@ -4,6 +4,7 @@ from typing import List
 from datetime import date, datetime, time
 from ..data.database import get_db
 from ..data import models, schemas
+from datetime import datetime
 
 router = APIRouter(prefix="/prontuarios", tags=["prontuarios"])
 
@@ -107,6 +108,31 @@ def criar_prontuario(prontuario: schemas.ProntuarioCreate, db: Session = Depends
     db.add(db_prontuario)
     db.commit()
     db.refresh(db_prontuario)
+    try:
+        from server import crud
+        # Buscar informações do idoso e remédio
+        idoso = db.query(models.Idoso).filter(models.Idoso.id == db_prontuario.idoso_id).first()
+        remedio = db.query(models.Remedio).filter(models.Remedio.id == db_prontuario.remedio_id).first()
+        
+        idoso_nome = idoso.nome if idoso else "Desconhecido"
+        remedio_nome = remedio.nome if remedio else "Desconhecido"
+        
+        # Formatar horário previsto
+        horario = db_prontuario.horario_previsto.strftime("%H:%M") if db_prontuario.horario_previsto else "N/A"
+        data_formatada = db_prontuario.data.strftime("%d/%m/%Y") if db_prontuario.data else "N/A"
+        
+        description = f"Prontuário criado para {idoso_nome} - Medicamento: {remedio_nome} - Horário: {horario} ({data_formatada})"
+        
+        crud.create_audit_log(
+            db, 
+            datetime.now(), 
+            action="Criação de Prontuário", 
+            target_table="prontuarios", 
+            target_id=db_prontuario.id, 
+            description=description
+        )
+    except Exception:
+        pass
     return db_prontuario
 
 
@@ -134,6 +160,40 @@ def atualizar_prontuario(
     
     db.commit()
     db.refresh(db_prontuario)
+    try:
+        from server import crud
+        # Buscar informações do idoso e remédio para log descritivo
+        idoso = db.query(models.Idoso).filter(models.Idoso.id == db_prontuario.idoso_id).first()
+        remedio = db.query(models.Remedio).filter(models.Remedio.id == db_prontuario.remedio_id).first()
+        
+        idoso_nome = idoso.nome if idoso else "Desconhecido"
+        remedio_nome = remedio.nome if remedio else "Desconhecido"
+        
+        # Formatar status
+        status_texto = {
+            "pendente": "Pendente",
+            "concluido": "Concluído",
+            "atrasado": "Atrasado"
+        }.get(db_prontuario.status, db_prontuario.status.capitalize())
+        
+        # Formatar horário realizado
+        horario_info = ""
+        if db_prontuario.horario_realizado:
+            horario_formatado = db_prontuario.horario_realizado.strftime("%d/%m/%Y às %H:%M")
+            horario_info = f" - Realizado em: {horario_formatado}"
+        
+        description = f"Prontuário de {idoso_nome} atualizado - Medicamento: {remedio_nome} - Status: {status_texto}{horario_info}"
+        
+        crud.create_audit_log(
+            db, 
+            datetime.now(), 
+            action="Atualização de Prontuário", 
+            target_table="prontuarios", 
+            target_id=db_prontuario.id, 
+            description=description
+        )
+    except Exception:
+        pass
     return db_prontuario
 
 
@@ -146,8 +206,30 @@ def deletar_prontuario(prontuario_id: int, db: Session = Depends(get_db)):
     if not db_prontuario:
         raise HTTPException(status_code=404, detail="Prontuário não encontrado")
     
+    # Buscar informações antes de deletar
+    idoso = db.query(models.Idoso).filter(models.Idoso.id == db_prontuario.idoso_id).first()
+    remedio = db.query(models.Remedio).filter(models.Remedio.id == db_prontuario.remedio_id).first()
+    
+    idoso_nome = idoso.nome if idoso else "Desconhecido"
+    remedio_nome = remedio.nome if remedio else "Desconhecido"
+    data_formatada = db_prontuario.data.strftime("%d/%m/%Y") if db_prontuario.data else "N/A"
+    
     db.delete(db_prontuario)
     db.commit()
+    try:
+        from server import crud
+        description = f"Prontuário removido - Paciente: {idoso_nome} - Medicamento: {remedio_nome} - Data: {data_formatada} (ID: {prontuario_id})"
+        
+        crud.create_audit_log(
+            db, 
+            datetime.now(), 
+            action="Exclusão de Prontuário", 
+            target_table="prontuarios", 
+            target_id=prontuario_id, 
+            description=description
+        )
+    except Exception:
+        pass
     return {"message": "Prontuário deletado com sucesso"}
 
 

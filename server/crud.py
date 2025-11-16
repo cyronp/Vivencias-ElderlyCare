@@ -64,3 +64,87 @@ def create_visita(db: Session, visita: schemas.VisitaCreate, idoso_id: int):
     db.commit()
     db.refresh(db_visita)
     return db_visita
+
+
+# ---------- Settings & Audit Logs ----------
+def get_settings(db: Session):
+    return db.query(models.Setting).all()
+
+
+def get_setting(db: Session, key: str):
+    return db.query(models.Setting).filter(models.Setting.key == key).first()
+
+
+def create_or_update_setting(db: Session, key: str, value: str, description: str | None = None):
+    setting = get_setting(db, key)
+    if setting:
+        setting.value = value
+        if description is not None:
+            setting.description = description
+    else:
+        setting = models.Setting(key=key, value=value, description=description)
+        db.add(setting)
+    db.commit()
+    db.refresh(setting)
+    return setting
+
+
+def create_audit_log(db: Session, timestamp, action: str, user: str | None = None, target_table: str | None = None, target_id: int | None = None, description: str | None = None):
+    log = models.AuditLog(
+        timestamp=timestamp,
+        user=user,
+        action=action,
+        target_table=target_table,
+        target_id=target_id,
+        description=description
+    )
+    db.add(log)
+    db.commit()
+    db.refresh(log)
+    return log
+
+
+def get_audit_logs(db: Session, limit: int = 200):
+    return db.query(models.AuditLog).order_by(models.AuditLog.timestamp.desc()).limit(limit).all()
+
+
+def create_profile(db: Session, profile: schemas.ProfileCreate):
+    db_profile = models.Profile(name=profile.name, description=profile.description)
+    db.add(db_profile)
+    db.commit()
+    db.refresh(db_profile)
+    return db_profile
+
+
+def list_profiles(db: Session):
+    return db.query(models.Profile).all()
+
+
+def get_profile(db: Session, profile_id: int):
+    return db.query(models.Profile).filter(models.Profile.id == profile_id).first()
+
+
+def create_user(db: Session, user: schemas.UserCreate):
+    # NOTE: password stored as plaintext for now; consider hashing
+    db_user = models.User(username=user.username, password=user.password, full_name=user.full_name, profile_id=user.profile_id)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
+def list_users(db: Session):
+    return db.query(models.User).all()
+
+
+def get_user(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.id == user_id).first()
+
+
+def delete_user(db: Session, user_id: int):
+    u = get_user(db, user_id)
+    if u:
+        db.delete(u)
+        db.commit()
+        return True
+    return False
