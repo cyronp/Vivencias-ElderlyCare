@@ -103,7 +103,7 @@
             <button
               id="profile-menu-button"
               type="button"
-              class="flex items-center gap-2"
+              class="flex items-center gap-2 cursor-pointer"
             >
               <div class="w-14 h-14 bg-white rounded-full">
                 <div class="justify-center items-center flex">
@@ -113,7 +113,9 @@
                   />
                 </div>
               </div>
-              <span class="text-xl font-medium text-white">Admin</span>
+              <span id="username-display" class="text-xl font-medium text-white"
+                ></span
+              >
               <svg
                 class="w-6 h-6 text-white cursor-pointer"
                 fill="none"
@@ -170,6 +172,27 @@
                     ></path>
                   </svg>
                   Registros
+                </a>
+                <div class="border-t border-gray-200 my-2"></div>
+                <a
+                  href="#"
+                  id="logout-btn"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-red-600 no-underline transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  Sair
                 </a>
               </div>
             </div>
@@ -309,8 +332,10 @@
       </a>
     </aside>
 
+    <script src="../js/auth-check.js"></script>
+    <script src="../js/notification.js"></script>
     <script src="../js/profile-menu.js"></script>
-    <script src="../js/notifications.js"></script>
+    <script src="../js/prontuarios.js"></script>
     <script src="../js/prontuarios.js"></script>
   </body>
 </html>

@@ -106,7 +106,7 @@ function createElderBox(idoso) {
       <h4 class="text-lg font-semibold text-gray-800 mb-3">Prioridade dos cuidados:</h4>
       <div class="text-sm">${caresHTML || '<p class="text-gray-400">Nenhum cuidado cadastrado</p>'}</div>
     </div>
-    <button class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl text-lg font-medium transition-colors mt-auto" onclick="performCare(${idoso.id})">Realizar cuidado</button>
+    <button class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl text-lg cursor-pointer font-medium transition-colors mt-auto" onclick="performCare(${idoso.id})">Realizar cuidado</button>
   `;
 
   return elderBox;
@@ -141,8 +141,11 @@ function loadElderly() {
       });
     })
     .catch((error) => {
-      console.error("Erro:", error);
-      alert("Erro ao carregar lista de idosos: " + error.message);
+      console.error("Error:", error);
+      showNotification(
+        "Erro ao carregar lista de idosos: " + error.message,
+        "error"
+      );
     });
 }
 
@@ -205,7 +208,8 @@ function populateEditModal(idoso) {
         <strong class="text-gray-800">${remedio.nome}</strong><br>
         <span class="text-sm text-gray-600">Prioridade: ${remedio.dosagem || "Não definida"} | Horário: ${formatTime(remedio.horario)}</span>
       </div>
-      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeRemedio(${index})">Remover</button>
+      <button class="bg-red-500 hover:bg-red-600 cursor-pointer
+       text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeRemedio(${index})">Remover</button>
     `;
     remediosList.appendChild(item);
   });
@@ -221,7 +225,7 @@ function populateEditModal(idoso) {
         <strong class="text-gray-800">${filho.nome}</strong><br>
         <span class="text-sm text-gray-600">Telefone: ${filho.telefone || "Não informado"}</span>
       </div>
-      <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeFilho(${index})">Remover</button>
+      <button class="bg-red-500 hover:bg-red-600 cursor-pointer text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeFilho(${index})">Remover</button>
     `;
     filhosList.appendChild(item);
   });
@@ -241,7 +245,7 @@ function populateEditModal(idoso) {
           <strong class="text-gray-800">Data: ${dataFormatada}</strong><br>
           <span class="text-sm text-gray-600">Responsável: ${visita.responsavel || "Não informado"}</span>
         </div>
-        <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeVisita(${index})">Remover</button>
+        <button class="bg-red-500 hover:bg-red-600 cursor-pointer text-white px-3 py-1 rounded-lg text-sm transition-colors" onclick="removeVisita(${index})">Remover</button>
       `;
       visitasList.appendChild(item);
     });
@@ -291,12 +295,12 @@ function addRemedio() {
   const horario = document.getElementById("new-remedio-horario").value;
 
   if (!nome) {
-    alert("Por favor, informe o nome do remédio/cuidado");
+    showNotification("Por favor, informe o nome do remédio/cuidado", "warning");
     return;
   }
 
   if (!horario) {
-    alert("Por favor, informe o horário");
+    showNotification("Por favor, informe o horário", "warning");
     return;
   }
 
@@ -319,7 +323,7 @@ function addFilho() {
   const telefone = document.getElementById("new-filho-telefone").value.trim();
 
   if (!nome) {
-    alert("Por favor, informe o nome do filho");
+    showNotification("Por favor, informe o nome do filho", "warning");
     return;
   }
 
@@ -343,21 +347,48 @@ function addVisita() {
     .value.trim();
 
   if (!data) {
-    alert("Por favor, informe a data da visita");
+    showNotification("Por favor, informe a data da visita", "warning");
     return;
   }
 
-  if (!currentEditingIdoso.visitas) {
-    currentEditingIdoso.visitas = [];
+  if (!currentEditingIdoso || !currentEditingIdoso.id) {
+    showNotification("Erro: Idoso não identificado", "error");
+    return;
   }
 
-  currentEditingIdoso.visitas.push({
-    data_visita: data,
-    responsavel: responsavel || null,
-  });
+  // Salvar visita diretamente no backend
+  fetch(`/visitas/${currentEditingIdoso.id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data_visita: data,
+      responsavel: responsavel || null,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao registrar visita");
+      }
+      return response.json();
+    })
+    .then((novaVisita) => {
+      // Adicionar visita à lista local
+      if (!currentEditingIdoso.visitas) {
+        currentEditingIdoso.visitas = [];
+      }
+      currentEditingIdoso.visitas.push(novaVisita);
 
-  populateEditModal(currentEditingIdoso);
-  cancelAddVisita();
+      // Atualizar modal
+      populateEditModal(currentEditingIdoso);
+      cancelAddVisita();
+      showNotification("Visita registrada com sucesso!", "success");
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+      showNotification("Erro ao registrar visita. Tente novamente.", "error");
+    });
 }
 
 function removeRemedio(index) {
@@ -375,10 +406,37 @@ function removeFilho(index) {
 }
 
 function removeVisita(index) {
-  if (currentEditingIdoso && currentEditingIdoso.visitas) {
-    currentEditingIdoso.visitas.splice(index, 1);
-    populateEditModal(currentEditingIdoso);
+  if (!currentEditingIdoso || !currentEditingIdoso.visitas) return;
+
+  const visita = currentEditingIdoso.visitas[index];
+
+  if (!visita || !visita.id) {
+    showNotification("Erro: Visita não encontrada", "error");
+    return;
   }
+
+  showConfirm("Tem certeza que deseja remover esta visita?", () => {
+    // Deletar visita no backend
+    fetch(`/visitas/${visita.id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao deletar visita");
+        }
+        return response.json();
+      })
+      .then(() => {
+        // Remover da lista local
+        currentEditingIdoso.visitas.splice(index, 1);
+        populateEditModal(currentEditingIdoso);
+        showNotification("Visita removida com sucesso!", "success");
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+        showNotification("Erro ao remover visita. Tente novamente.", "error");
+      });
+  });
 }
 
 function saveEdit() {
@@ -393,7 +451,7 @@ function saveEdit() {
 
   // Validação básica
   if (!updatedData.nome || updatedData.nome.trim() === "") {
-    alert("O nome é obrigatório!");
+    showNotification("O nome é obrigatório!", "warning");
     return;
   }
 
@@ -411,38 +469,39 @@ function saveEdit() {
       return response.json();
     })
     .then((data) => {
-      alert("Idoso atualizado com sucesso!");
+      showNotification("Idoso atualizado com sucesso!", "success");
       closeEditModal();
       loadElderly();
     })
     .catch((error) => {
       console.error("Erro:", error);
-      alert("Erro ao atualizar idoso");
+      showNotification("Erro ao atualizar idoso", "error");
     });
 }
 
 function deleteCurrentElderly() {
   if (!currentEditingIdoso) return;
 
-  if (!confirm(`Tem certeza que deseja excluir ${currentEditingIdoso.nome}?`)) {
-    return;
-  }
-
-  fetch(`/idosos/${currentEditingIdoso.id}`, {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erro ao excluir idoso");
-      }
-      alert("Idoso excluído com sucesso!");
-      closeEditModal();
-      loadElderly();
-    })
-    .catch((error) => {
-      console.error("Erro:", error);
-      alert("Erro ao excluir idoso");
-    });
+  showConfirm(
+    `Tem certeza que deseja excluir ${currentEditingIdoso.nome}?`,
+    () => {
+      fetch(`/idosos/${currentEditingIdoso.id}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro ao excluir idoso");
+          }
+          showNotification("Idoso excluído com sucesso!", "success");
+          closeEditModal();
+          loadElderly();
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir:", error);
+          showNotification("Erro ao excluir idoso", "error");
+        });
+    }
+  );
 }
 
 let currentCareIdoso = null;
@@ -503,7 +562,7 @@ async function performCare(idosoId) {
     document.getElementById("care-modal").classList.add("flex");
   } catch (error) {
     console.error("Erro:", error);
-    alert("Erro ao carregar cuidados do idoso");
+    showNotification("Erro ao carregar cuidados do idoso", "error");
   }
 }
 
@@ -514,41 +573,45 @@ function closeCareModal() {
 }
 
 async function markCareAsDone(prontuarioId, remedioNome) {
-  if (!confirm(`Marcar "${remedioNome}" como concluído?`)) {
-    return;
-  }
+  showConfirm(`Marcar "${remedioNome}" como concluído?`, async () => {
+    try {
+      const now = new Date();
+      const horarioRealizado = now.toISOString();
 
-  try {
-    const now = new Date();
-    const horarioRealizado = now.toISOString();
+      const response = await fetch(`/prontuarios/${prontuarioId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: "concluido",
+          horario_realizado: horarioRealizado,
+        }),
+      });
 
-    const response = await fetch(`/prontuarios/${prontuarioId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        status: "concluido",
-        horario_realizado: horarioRealizado,
-      }),
-    });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Erro do servidor:", errorData);
+        throw new Error("Erro ao atualizar prontuário");
+      }
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("Erro do servidor:", errorData);
-      throw new Error("Erro ao atualizar prontuário");
+      const horarioExibir = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+      showNotification(
+        `"${remedioNome}" marcado como concluído às ${horarioExibir}!`,
+        "success"
+      );
+
+      if (currentCareIdoso) {
+        await performCare(currentCareIdoso);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      showNotification(
+        "Erro ao marcar cuidado como concluído: " + error.message,
+        "error"
+      );
     }
-
-    const horarioExibir = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
-    alert(`"${remedioNome}" marcado como concluído às ${horarioExibir}!`);
-
-    if (currentCareIdoso) {
-      await performCare(currentCareIdoso);
-    }
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("Erro ao marcar cuidado como concluído: " + error.message);
-  }
+  });
 }
 
 loadElderly();

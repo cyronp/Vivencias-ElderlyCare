@@ -61,7 +61,7 @@
 <button
               id="profile-menu-button"
               type="button"
-              class="flex items-center gap-2"
+              class="flex items-center gap-2 cursor-pointer"
             >
               <div class="w-14 h-14 bg-white rounded-full">
                 <div class="justify-center items-center flex">
@@ -71,7 +71,7 @@
                   />
                 </div>
               </div>
-              <span class="text-xl font-medium text-white">Admin</span>
+              <span id="username-display" class="text-xl font-medium text-white"></span>
               <svg
                 class="w-6 h-6 text-white cursor-pointer"
                 fill="none"
@@ -108,6 +108,27 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                   </svg>
                   Registros
+                </a>
+                <div class="border-t border-gray-200 my-2"></div>
+                <a
+                  href="#"
+                  id="logout-btn"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-red-600 no-underline transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  Sair
                 </a>
               </div>
             </div>
@@ -180,7 +201,7 @@
             </div>
           </div>
           <div class="flex justify-end mt-8">
-            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium" onclick="nextStep(2)">
+            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium cursor-pointer" onclick="nextStep(2)">
               Próximo
             </button>
           </div>
@@ -189,7 +210,7 @@
         <!-- Step 2: Filhos -->
         <div class="max-w-2xl mx-auto" id="step2" style="display: none">
           <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Filhos do Idoso</h2>
-          <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6" onclick="addChildForm()">
+          <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6 cursor-pointer" onclick="addChildForm()">
             + Adicionar Filho
           </button>
           <div id="children-container" class="space-y-6">
@@ -219,12 +240,12 @@
           <div class="flex justify-between gap-3 mt-8">
             <button
               type="button"
-              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium cursor-pointer"
               onclick="prevStep(1)"
             >
               Voltar
             </button>
-            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium" onclick="nextStep(3)">
+            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium cursor-pointer" onclick="nextStep(3)">
               Próximo
             </button>
           </div>
@@ -233,7 +254,7 @@
         <!-- Step 3: Cuidados -->
         <div class="max-w-2xl mx-auto" id="step3" style="display: none">
           <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Cuidados do Idoso</h2>
-          <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6" onclick="addCareForm()">
+          <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6 cursor-pointer" onclick="addCareForm()">
             + Adicionar Cuidado
           </button>
           <div id="cares-container" class="space-y-6">
@@ -271,12 +292,12 @@
           <div class="flex justify-between gap-3 mt-8">
             <button
               type="button"
-              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium cursor-pointer"
               onclick="prevStep(2)"
             >
               Voltar
             </button>
-            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium" onclick="nextStep(4)">
+            <button type="button" class="px-6 py-3 bg-sky-700 text-white rounded-lg hover:bg-sky-800 transition-colors font-medium cursor-pointer" onclick="nextStep(4)">
               Próximo
             </button>
           </div>
@@ -302,12 +323,12 @@
           <div class="flex justify-between gap-3 mt-8">
             <button
               type="button"
-              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+              class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium cursor-pointer"
               onclick="prevStep(3)"
             >
               Voltar
             </button>
-            <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium" onclick="submitForm()">
+            <button type="button" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer" onclick="submitForm()">
               Finalizar Cadastro
             </button>
           </div>
@@ -355,12 +376,12 @@
       <div class="relative bg-white rounded-xl w-80 max-w-sm p-6 shadow-lg z-10">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-semibold">Conta</h3>
-          <button type="button" class="close-modal text-gray-500 hover:text-gray-800 text-2xl leading-none">&times;</button>
+          <button type="button" class="close-modal text-gray-500 hover:text-gray-800 text-2xl leading-none cursor-pointer">&times;</button>
         </div>
         <div class="flex flex-col gap-3">
           <a href="/static/pages/users.html" class="px-4 py-2 rounded-lg hover:bg-gray-100 no-underline text-gray-800">Gerenciar Usuários</a>
           <a href="/static/pages/settings.html" class="px-4 py-2 rounded-lg hover:bg-gray-100 no-underline text-gray-800">Registros</a>
-          <button type="button" class="close-modal px-4 py-2 rounded-lg bg-sky-700 text-white hover:bg-sky-800">Fechar</button>
+          <button type="button" class="close-modal px-4 py-2 rounded-lg bg-sky-700 text-white hover:bg-sky-800 cursor-pointer">Fechar</button>
         </div>
       </div>
     </div>
@@ -441,6 +462,8 @@
       </nav>
     </aside>
 
+    <script src="../js/auth-check.js"></script>
+    <script src="../js/notification.js"></script>
     <script src="../js/profile-menu.js"></script>
     <script src="../js/notifications.js"></script>
     <script src="../js/elderly_form.js"></script>

@@ -18,4 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Adicionar funcionalidade de logout
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (confirm("Deseja realmente sair?")) {
+        logout();
+      }
+    });
+  }
 });

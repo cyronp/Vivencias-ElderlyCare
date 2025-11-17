@@ -38,17 +38,13 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)
         raise HTTPException(status_code=400, detail="Usuário já existe")
     u = crud.create_user(db, user)
     try:
-        # Buscar nome do perfil
-        profile = db.query(models.Profile).filter(models.Profile.id == u.profile_id).first()
-        profile_name = profile.name if profile else "Desconhecido"
-        
         crud.create_audit_log(
             db, 
             datetime.now(), 
             action="Cadastro de Usuário", 
             target_table="users", 
             target_id=u.id, 
-            description=f"Novo usuário cadastrado: '{u.username}' - Perfil: {profile_name}"
+            description=f"Novo usuário cadastrado: '{u.username}'"
         )
     except Exception:
         pass

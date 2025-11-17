@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from server import crud
 from ..data import schemas, database, models
-from datetime import datetime
+from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/idosos", tags=["Idosos"])
 
@@ -102,3 +103,44 @@ def deletar_idoso(idoso_id: int, db: Session = Depends(database.get_db)):
     except Exception:
         pass
     return {"message": "Idoso deletado com sucesso"}
+
+
+@router.get("/alertas/visitas", response_model=list[dict])
+def idosos_sem_visita(db: Session = Depends(database.get_db)):
+    """
+    Retorna idosos que nunca receberam visita ou cuja última visita foi há mais de 3 meses
+    """
+    tres_meses_atras = datetime.now().date() - timedelta(days=90)
+    
+    # Buscar todos os idosos
+    idosos = db.query(models.Idoso).all()
+    
+    resultado = []
+    for idoso in idosos:
+        # Buscar a visita mais recente do idoso
+        ultima_visita = db.query(models.Visita)\
+            .filter(models.Visita.idoso_id == idoso.id)\
+            .order_by(models.Visita.data_visita.desc())\
+            .first()
+        
+        if ultima_visita is None:
+            # Nunca teve visita
+            resultado.append({
+                "id": idoso.id,
+                "nome": idoso.nome,
+                "ultima_visita": None,
+                "dias_sem_visita": None,
+                "status": "Nunca recebeu visita"
+            })
+        elif ultima_visita.data_visita < tres_meses_atras:
+            # Última visita foi há mais de 3 meses
+            dias = (datetime.now().date() - ultima_visita.data_visita).days
+            resultado.append({
+                "id": idoso.id,
+                "nome": idoso.nome,
+                "ultima_visita": ultima_visita.data_visita.strftime("%d/%m/%Y"),
+                "dias_sem_visita": dias,
+                "status": f"Há {dias} dias sem visita"
+            })
+    
+    return resultado

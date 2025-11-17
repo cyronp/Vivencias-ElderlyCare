@@ -103,7 +103,7 @@
             <button
               id="profile-menu-button"
               type="button"
-              class="flex items-center gap-2"
+              class="flex items-center gap-2 cursor-pointer"
             >
               <div class="w-14 h-14 bg-white rounded-full">
                 <div class="justify-center items-center flex">
@@ -113,7 +113,9 @@
                   />
                 </div>
               </div>
-              <span class="text-xl font-medium text-white">Admin</span>
+              <span id="username-display" class="text-xl font-medium text-white"
+                ></span
+              >
               <svg
                 class="w-6 h-6 text-white cursor-pointer"
                 fill="none"
@@ -171,6 +173,27 @@
                   </svg>
                   Registros
                 </a>
+                <div class="border-t border-gray-200 my-2"></div>
+                <a
+                  href="#"
+                  id="logout-btn"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-red-600 no-underline transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  Sair
+                </a>
               </div>
             </div>
           </div>
@@ -222,20 +245,11 @@
                 required
               />
             </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Perfil
-              </label>
-              <select
-                id="user-profile"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
-              ></select>
-            </div>
             <div class="flex justify-end mt-8">
               <button
                 id="create-user"
                 type="button"
-                class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer"
               >
                 Criar Usuário
               </button>
@@ -321,7 +335,7 @@
           <h2 class="text-2xl font-bold text-gray-800">Criar Novo Usuário</h2>
           <button
             type="button"
-            class="close-modal text-gray-500 hover:text-gray-800 text-3xl leading-none"
+            class="close-modal text-gray-500 hover:text-gray-800 text-3xl leading-none cursor-pointer"
           >
             &times;
           </button>
@@ -375,14 +389,14 @@
           <div class="flex justify-end gap-3 mt-8">
             <button
               type="button"
-              class="close-modal px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+              class="close-modal px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium cursor-pointer"
             >
               Cancelar
             </button>
             <button
               id="modal-create-user"
               type="button"
-              class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+              class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer"
             >
               Criar Usuário
             </button>
@@ -450,6 +464,8 @@
       </nav>
     </aside>
 
+    <script src="../js/auth-check.js"></script>
+    <script src="../js/notification.js"></script>
     <script src="../js/profile-menu.js"></script>
     <script src="../js/users.js"></script>
   </body>

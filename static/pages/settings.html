@@ -103,7 +103,7 @@
             <button
               id="profile-menu-button"
               type="button"
-              class="flex items-center gap-2"
+              class="flex items-center gap-2 cursor-pointer"
             >
               <div class="w-14 h-14 bg-white rounded-full">
                 <div class="justify-center items-center flex">
@@ -113,7 +113,10 @@
                   />
                 </div>
               </div>
-              <span class="text-xl font-medium text-white">Admin</span>
+              <span
+                id="username-display"
+                class="text-xl font-medium text-white"
+              ></span>
               <svg
                 class="w-6 h-6 text-white cursor-pointer"
                 fill="none"
@@ -170,6 +173,27 @@
                     ></path>
                   </svg>
                   Registros
+                </a>
+                <div class="border-t border-gray-200 my-2"></div>
+                <a
+                  href="#"
+                  id="logout-btn"
+                  class="flex items-center px-4 py-3 hover:bg-gray-100 text-red-600 no-underline transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  Sair
                 </a>
               </div>
             </div>
@@ -262,21 +286,22 @@
               </div>
             </div>
 
-            <div class="overflow-x-auto">
+            <!-- Desktop: Tabela -->
+            <div class="hidden md:block overflow-x-auto">
               <div
                 class="overflow-y-auto max-h-[calc(100vh-400px)] min-h-[400px]"
               >
-                <table id="logs-table" class="w-full text-xs sm:text-sm">
+                <table id="logs-table" class="w-full text-sm">
                   <thead
                     class="bg-linear-to-r from-gray-50 to-gray-100 sticky top-0 z-10"
                   >
                     <tr class="text-left border-b-2 border-sky-200">
                       <th
-                        class="p-2 sm:p-4 text-gray-700 font-semibold text-xs sm:text-sm whitespace-nowrap"
+                        class="p-4 text-gray-700 font-semibold whitespace-nowrap"
                       >
-                        <div class="flex items-center gap-1 sm:gap-2">
+                        <div class="flex items-center gap-2">
                           <svg
-                            class="w-3 h-3 sm:w-4 sm:h-4 text-sky-600 hidden sm:block"
+                            class="w-4 h-4 text-sky-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -288,16 +313,15 @@
                               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                             ></path>
                           </svg>
-                          <span class="hidden sm:inline">Data/Hora</span>
-                          <span class="sm:hidden">Data</span>
+                          Data/Hora
                         </div>
                       </th>
                       <th
-                        class="p-2 sm:p-4 text-gray-700 font-semibold text-xs sm:text-sm whitespace-nowrap"
+                        class="p-4 text-gray-700 font-semibold whitespace-nowrap"
                       >
-                        <div class="flex items-center gap-1 sm:gap-2">
+                        <div class="flex items-center gap-2">
                           <svg
-                            class="w-3 h-3 sm:w-4 sm:h-4 text-sky-600 hidden sm:block"
+                            class="w-4 h-4 text-sky-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -313,11 +337,11 @@
                         </div>
                       </th>
                       <th
-                        class="p-2 sm:p-4 text-gray-700 font-semibold text-xs sm:text-sm whitespace-nowrap"
+                        class="p-4 text-gray-700 font-semibold whitespace-nowrap"
                       >
-                        <div class="flex items-center gap-1 sm:gap-2">
+                        <div class="flex items-center gap-2">
                           <svg
-                            class="w-3 h-3 sm:w-4 sm:h-4 text-sky-600 hidden sm:block"
+                            class="w-4 h-4 text-sky-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -333,11 +357,11 @@
                         </div>
                       </th>
                       <th
-                        class="p-2 sm:p-4 text-gray-700 font-semibold text-xs sm:text-sm whitespace-nowrap"
+                        class="p-4 text-gray-700 font-semibold whitespace-nowrap"
                       >
-                        <div class="flex items-center gap-1 sm:gap-2">
+                        <div class="flex items-center gap-2">
                           <svg
-                            class="w-3 h-3 sm:w-4 sm:h-4 text-sky-600 hidden sm:block"
+                            class="w-4 h-4 text-sky-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -353,7 +377,7 @@
                         </div>
                       </th>
                       <th
-                        class="p-2 sm:p-4 text-gray-700 font-semibold text-xs sm:text-sm whitespace-nowrap hidden md:table-cell"
+                        class="p-4 text-gray-700 font-semibold whitespace-nowrap"
                       >
                         <div class="flex items-center gap-2">
                           <svg
@@ -377,6 +401,14 @@
                   <tbody class="divide-y divide-gray-100"></tbody>
                 </table>
               </div>
+            </div>
+
+            <!-- Mobile: Cards -->
+            <div
+              class="block md:hidden overflow-y-auto max-h-[calc(100vh-350px)] min-h-[400px] p-4 space-y-3 bg-gray-50"
+              id="logs-mobile-container"
+            >
+              <!-- Os cards serão inseridos aqui via JavaScript -->
             </div>
           </section>
         </div>
@@ -443,7 +475,9 @@
       </nav>
     </aside>
 
+    <script src="../js/auth-check.js"></script>
+    <script src="../js/notification.js"></script>
     <script src="../js/profile-menu.js"></script>
-    <script src="/static/js/settings.js"></script>
+    <script src="../js/settings.js"></script>
   </body>
 </html>
